@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="BjjAcademy.AddUpdatePersonPage"
+             Padding="20"
+             x:Name="AddUpdateNamePage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label x:Name="lblPageTitle" Text="Dodaj osobę:" HorizontalOptions="Center" FontSize="Medium"/>
+            
+                <Entry x:Name="Name" Keyboard="Text" 
+                   Placeholder="Imię" 
+                   Completed="Name_Completed" 
+                   TextChanged="Name_TextChanged"/>
+            
+                <Label x:Name="lblNameValidation" Text="" FontSize="Micro" TextColor="Red"/>
+            
+                <Entry x:Name="Surname" Keyboard="Text" 
+                   Placeholder="Nazwisko" 
+                   Completed="Surname_Completed" 
+                   TextChanged="Surname_TextChanged"/>
+                <Label x:Name="lblSurnameValidation" Text="" FontSize="Micro" TextColor="Red"/>
+
+                <Entry x:Name="Pseudo" Keyboard="Text" 
+                   Placeholder="Pseudo" 
+                   Completed="Pseudo_Completed" 
+                   TextChanged="Pseudo_TextChanged"/>
+                <Label x:Name="lblPseudoValidation" Text="" FontSize="Micro" TextColor="Red"/>
+
+            <!-- Belt and stripe picker -->
+                <StackLayout Orientation="Horizontal">
+                    <Picker x:Name="pckrBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" SelectedIndexChanged="Pckr_SelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>Biały</x:String>
+                        <x:String>Niebieski</x:String>
+                        <x:String>Purpurowy</x:String>
+                        <x:String>Brązowy</x:String>
+                        <x:String>Czarny</x:String>
+                    </Picker.Items>
+                </Picker>
+                    <Picker x:Name="pckrStripes" Title="Ilość belek" HorizontalOptions="FillAndExpand" SelectedIndexChanged="Pckr_SelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>0 belek</x:String>
+                        <x:String>1 belka</x:String>
+                        <x:String>2 belki</x:String>
+                        <x:String>3 belki</x:String>
+                        <x:String>4 belki</x:String>
+                    </Picker.Items>
+                </Picker>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <ic:CircleImage x:Name="CirclePhoto"
+                        HeightRequest="200"
+                        WidthRequest="200"
+                        Aspect="AspectFill"
+                        HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+                
+                <!-- Cancel and Add buttons -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnPhotoMaker" BackgroundColor="LightBlue" HorizontalOptions="FillAndExpand"
+                        Clicked="BtnPhotoMaker_Clicked" Text="Dodaj zdjęcie" IsEnabled="False"
+                            Grid.Row="0" Grid.Column="0"/>
+                    
+                    <Button x:Name="btnPhotoPicker" BackgroundColor="LightBlue" HorizontalOptions="FillAndExpand"
+                        Clicked="BtnPhotoPicker_Clicked" Text="Dodaj z galerii" IsEnabled="False"
+                            Grid.Row="0" Grid.Column="1"/>
+
+                    <Button Text="Anuluj" x:Name="CancelBtn" HorizontalOptions="FillAndExpand" 
+                        Clicked="CancelBtn_Clicked" BackgroundColor="IndianRed" Grid.Row="1" Grid.Column="0"/>
+                    <Button Text="Dodaj" x:Name="AddBtn" HorizontalOptions="FillAndExpand" 
+                        Clicked="AddBtn_Clicked" BackgroundColor="LightGreen" IsEnabled="False" Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+            
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

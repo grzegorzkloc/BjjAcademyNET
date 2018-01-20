@@ -1,0 +1,50 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BjjAcademy"
+             xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="BjjAcademy.Students"
+             Title="Lista osób"
+             Padding="5"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name ="AddPerson" Text="Dodaj osobę" Order="Primary" Activated="AddPerson_Activated"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <SearchBar x:Name="searchbar" Placeholder="Szukaj..." TextChanged="Searchbar_TextChanged" 
+                       HorizontalOptions="StartAndExpand"/>
+            <ListView 
+            x:Name="StudentList" 
+            ItemSelected="StudentList_ItemSelected" 
+            HasUnevenRows="True" 
+            IsPullToRefreshEnabled="False" 
+            Refreshing="StudentList_Refreshing"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem x:Name="miDelete" Text= "Usuń" Clicked="MenuItemDelete_Clicked" IsDestructive="True"
+                                          CommandParameter="{Binding .}"/>
+                            </ViewCell.ContextActions>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <ic:CircleImage 
+                                    WidthRequest="50" 
+                                    HeightRequest="50"
+                                    Aspect="AspectFill"
+                                    Source="{Binding Photo}"/>
+                                <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Name}" FontSize="Medium"/>
+                                        <Label Text="{Binding Surname}" FontSize="Medium"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding Pseudo}" TextColor="DarkBlue" FontSize="Micro"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

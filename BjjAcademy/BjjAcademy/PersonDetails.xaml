@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="BjjAcademy.PersonDetails"
+             x:Name="PersonDetails"
+             Padding="5">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <ic:CircleImage x:Name="PersonPhoto" HeightRequest="200" WidthRequest="200" Aspect="AspectFill" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" Spacing="5">
+                    <BoxView HeightRequest="2" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="Center"/>
+                    <Label x:Name="NameSurnameLbl" FontSize="Large" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label x:Name="PseudoLbl" FontSize="Large" TextColor="Navy" HorizontalOptions="Center"/>
+                    <BoxView HeightRequest="10" WidthRequest="100" BackgroundColor="Transparent" HorizontalOptions="Center"/>
+                    <Label x:Name="BeltStripesLbl" FontSize="Medium" HorizontalOptions="Center"/>
+                </StackLayout>
+
+            <!-- Delete and Update buttons -->
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Kasuj" 
+                        x:Name="DeleteBtn" 
+                        HorizontalOptions="FillAndExpand" 
+                        Clicked ="DeleteBtn_Clicked" 
+                        BackgroundColor="IndianRed"/>
+                <Button Text="Edytuj" 
+                        x:Name="UpdateBtn" 
+                        HorizontalOptions="FillAndExpand" 
+                        Clicked ="UpdateBtn_Clicked" 
+                        BackgroundColor="LightGreen"/>
+                </StackLayout>
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
