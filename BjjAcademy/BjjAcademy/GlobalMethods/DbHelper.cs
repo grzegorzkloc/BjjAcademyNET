@@ -63,9 +63,13 @@ namespace BjjAcademy.GlobalMethods
         public static async Task<string> PutFilesInCorrectDirectory(MediaFile photo)
         {
             var file = await FileSystem.Current.GetFileFromPathAsync(photo.Path);
+            string TargetDirectoryPath1 = file.Path.Replace(file.Name, "");
+            string TargetDirectoryPath = TargetDirectoryPath1.Replace("temp", "People");
+            IFileSystem current = FileSystem.Current;
+            var result = await current.LocalStorage.CheckExistsAsync(TargetDirectoryPath);
+            if (result == ExistenceCheckResult.NotFound) await current.LocalStorage.CreateFolderAsync(TargetDirectoryPath, CreationCollisionOption.OpenIfExists);
             await file.MoveAsync(file.Path.Replace("temp", "People"), NameCollisionOption.GenerateUniqueName);
             return file.Path;
         }
-
     }
 }
