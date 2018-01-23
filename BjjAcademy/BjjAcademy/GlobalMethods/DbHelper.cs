@@ -62,12 +62,23 @@ namespace BjjAcademy.GlobalMethods
 
         public static async Task<string> PutFilesInCorrectDirectory(MediaFile photo)
         {
+            //path to file chosen using PhotoPicker
             var file = await FileSystem.Current.GetFileFromPathAsync(photo.Path);
-            string TargetDirectoryPath1 = file.Path.Replace(file.Name, "");
-            string TargetDirectoryPath = TargetDirectoryPath1.Replace("temp", "People");
+
+            //Not a very elegant way of getting parent directory
+            //1st step
+            string TargetDirectoryPathWithoutFileName = file.Path.Replace(file.Name, "");
+            //Parent directory
+            string TargetDirectoryPath = TargetDirectoryPathWithoutFileName.Replace("temp", "People");
             IFileSystem current = FileSystem.Current;
+
+            //Checking i "People" folder exists
             var result = await current.LocalStorage.CheckExistsAsync(TargetDirectoryPath);
+
+            //If not - we need to create it
             if (result == ExistenceCheckResult.NotFound) await current.LocalStorage.CreateFolderAsync(TargetDirectoryPath, CreationCollisionOption.OpenIfExists);
+
+            //Moving the file from "temp" directory to "People" directory
             await file.MoveAsync(file.Path.Replace("temp", "People"), NameCollisionOption.GenerateUniqueName);
             return file.Path;
         }
