@@ -154,18 +154,18 @@ namespace BjjAcademy
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
             string TempPseudo;
-            TempPseudo = Pseudo.Text;
             if (String.IsNullOrEmpty(Pseudo.Text)) TempPseudo = "";
+            else TempPseudo = Pseudo.Text.Trim();
             Person AboutToBeCreated = new Person()
             {
-                Name = Name.Text,
-                Surname = Surname.Text,
+                Name = Name.Text.Trim(),
+                Surname = Surname.Text.Trim(),
                 Pseudo = TempPseudo
             };
             if (await CheckIfPersonExists(AboutToBeCreated))
             {
                 AddUpdatePerson();
-                Navigation.PopModalAsync();
+                await Navigation.PopModalAsync();
             }
         }
 
@@ -332,10 +332,10 @@ namespace BjjAcademy
                 }
             }
 
-            UpdatedPerson.Name = Name.Text;
-            UpdatedPerson.Surname = Surname.Text;
+            UpdatedPerson.Name = Name.Text.Trim();
+            UpdatedPerson.Surname = Surname.Text.Trim();
             if (String.IsNullOrEmpty(Pseudo.Text)) UpdatedPerson.Pseudo = "";
-            else UpdatedPerson.Pseudo = Pseudo.Text;
+            else UpdatedPerson.Pseudo = Pseudo.Text.Trim();
             UpdatedPerson.BeltId = (byte)beltid;
             if (!String.IsNullOrEmpty(FilePath)) UpdatedPerson.Photo = FilePath;
 
@@ -371,10 +371,11 @@ namespace BjjAcademy
         {
             string pseudo = Pseudo;
             if (String.IsNullOrEmpty(pseudo)) pseudo = "";
+            else pseudo.Trim();
             Person NewPerson = new Person
             {
-                Name = Name,
-                Surname = Surname,
+                Name = Name.Trim(),
+                Surname = Surname.Trim(),
                 Pseudo = pseudo,
                 BeltId = (byte)BeltId,
                 Photo = PhotoFilePath
