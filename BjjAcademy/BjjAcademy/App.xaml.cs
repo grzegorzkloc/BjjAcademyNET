@@ -12,7 +12,6 @@ namespace BjjAcademy
 {
     public partial class App : Application
     {
-        public int x;
         public App()
         {
             InitializeComponent();

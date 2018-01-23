@@ -36,7 +36,7 @@ namespace BjjAcademy
             if (startup) InitialOperations();
             var Trainings = await _connection.Table<TrainingPlan>().ToListAsync();
             TrainingPlans = new ObservableCollection<TrainingPlan>(Trainings);
-            BjjTrainingList.ItemsSource = TrainingPlans;
+            this.BjjTrainingList.ItemsSource = TrainingPlans;
             base.OnAppearing();
         }
 

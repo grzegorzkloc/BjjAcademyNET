@@ -151,10 +151,9 @@ namespace BjjAcademy
             await Navigation.PopModalAsync();
         }
 
-        private void AddBtn_Clicked(object sender, EventArgs e)
+        private async void AddBtn_Clicked(object sender, EventArgs e)
         {
-            AddUpdatePerson();
-            Navigation.PopModalAsync();
+            if (await AddUpdatePerson()) await Navigation.PopModalAsync();
         }
 
         private void Pckr_SelectedIndexChanged(object sender, EventArgs e)
@@ -227,16 +226,17 @@ namespace BjjAcademy
 
         #region Methods
 
-        private void AddUpdatePerson()
+        private async Task<bool> AddUpdatePerson()
         {
             if (IsAddPage == true)
             {
-                AddPerson();
+                return await AddPerson();
             }
             else if (IsAddPage == false)
             {
-                UpdatePerson();
+                return await UpdatePerson();
             }
+            return false;
         }
 
         private bool CheckEntry(Entry field, Label lbl)
@@ -290,7 +290,7 @@ namespace BjjAcademy
             }
         }
 
-        private async void AddPerson()
+        private async Task<bool> AddPerson()
         {
             int beltid = await DbHelper.GetChosenBeltId(_connection, this.pckrBelt.SelectedIndex,
                 this.pckrStripes.SelectedIndex);
@@ -298,13 +298,17 @@ namespace BjjAcademy
             Person NewPerson = SetPersonDetails(this.Name.Text, this.Surname.Text,
                 this.Pseudo.Text, beltid, FilePath);
 
-            await this._connection.InsertAsync(NewPerson);
-            this.PersonsList.Add(NewPerson);
-            await DisplayAlert("Dodano osobę", "Osoba " + this.Name.Text + " " + this.Surname.Text + " dodana.", "OK");
-            //TODO: Check if person already exists.
+            if (await CheckIfPersonExists(NewPerson))
+            {
+                await this._connection.InsertAsync(NewPerson);
+                this.PersonsList.Add(NewPerson);
+                await DisplayAlert("Dodano osobę", "Osoba " + this.Name.Text + " " + this.Surname.Text + " dodana.", "OK");
+                return true;
+            }
+            else return false;
         }
 
-        private async void UpdatePerson()
+        private async Task<bool> UpdatePerson()
         {
             int beltid = await DbHelper.GetChosenBeltId(_connection, this.pckrBelt.SelectedIndex,
                 this.pckrStripes.SelectedIndex);
@@ -327,11 +331,15 @@ namespace BjjAcademy
             UpdatedPerson.BeltId = (byte)beltid;
             if (!String.IsNullOrEmpty(FilePath)) UpdatedPerson.Photo = FilePath;
 
-            await _connection.UpdateAsync(UpdatedPerson);
+            if (await CheckIfPersonExists(UpdatedPerson))
+            {
+                await _connection.UpdateAsync(UpdatedPerson);
 
-            await DisplayAlert("Uaktualniono osobę", "Osoba " + Name.Text + " " + Surname.Text + " uaktualniona.", "OK");
-            MessagingCenter.Send(this, MessagingCenterMessage.PersonUpdated, PersonsList);
-            //TODO: Check if Name / Surname was not changed to an existing person
+                await DisplayAlert("Uaktualniono osobę", "Osoba " + Name.Text + " " + Surname.Text + " uaktualniona.", "OK");
+                MessagingCenter.Send(this, MessagingCenterMessage.PersonUpdated, PersonsList);
+                return true;
+            }
+            else return false;
         }
 
         private async void ShowPhoto(string filePath)
@@ -388,6 +396,27 @@ namespace BjjAcademy
         {
             if (String.IsNullOrEmpty(FilePath)) this.CirclePhoto.IsVisible = false;
             else this.CirclePhoto.IsVisible = true;
+        }
+
+        private async Task<bool> CheckIfPersonExists(Person person)
+        {
+            foreach (Person ListedPerson in PersonsList)
+            {
+                if (ListedPerson.Name == person.Name && ListedPerson.Surname == person.Surname)
+                {
+                    if (ListedPerson.Pseudo == person.Pseudo)
+                    {
+                        await DisplayAlert("Błąd", "Osoba istnieje już w bazie danych!", "OK");
+                        return false;
+                    }
+                    else if (ListedPerson.Pseudo != person.Pseudo)
+                    {
+                        return await DisplayAlert("Uwaga", "W bazie danych jest już osoba tym imieniu i nazwisku, ma jednak inny pseudonim. Czy kontynuować?.", "Tak", "Nie");
+                    }
+                }
+            }
+
+            return true;
         }
         #endregion
     }
