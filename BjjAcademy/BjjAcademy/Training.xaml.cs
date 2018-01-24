@@ -58,12 +58,12 @@ namespace BjjAcademy
 
         private async void InitialOperations()
         {
+            startup = false;
             await _connection.CreateTableAsync<TrainingPlan>();
         }
 
         private async void TrainingPlanAdded(AddTrainingItemsList source, TrainingPlan trainingPlan)
         {
-            startup = false;
             TrainingPlans.Add(trainingPlan);
             await _connection.InsertAsync(trainingPlan);
         }
