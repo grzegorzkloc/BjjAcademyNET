@@ -24,12 +24,12 @@ namespace BjjAcademy.TrainingRelatedPages
             InitializeComponent();
             MessagingCenter.Subscribe<Training, Models.TrainingPlan>(this, GlobalMethods.MessagingCenterMessage.TrainingPlanViewed, ReceiveTrainingPlanObject);
             MessagingCenter.Subscribe<TrainingRelatedPages.AddUpdateExercise, string>(this, GlobalMethods.MessagingCenterMessage.ExerciseAdded, ReceivedNewExercise);
-            //MessagingCenter.Subscribe<TrainingRelatedPages.AddUpdateExercise, string>(this, GlobalMethods.MessagingCenterMessage.ExerciseUpdated, ReceivedUpdatedExercise);
+            MessagingCenter.Subscribe<TrainingRelatedPages.AddUpdateExercise, string>(this, GlobalMethods.MessagingCenterMessage.ExerciseUpdated, ReceivedUpdatedExercise);
         }
 
         private void ReceivedUpdatedExercise(AddUpdateExercise source, string exercise)
         {
-            trainingPlan.AddTrainingActivity(exercise);
+            //trainingPlan.AddTrainingActivity(exercise);
         }
 
         private void ReceivedNewExercise(AddUpdateExercise source, string exercise)
