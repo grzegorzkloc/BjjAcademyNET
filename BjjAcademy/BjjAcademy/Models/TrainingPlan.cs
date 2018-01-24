@@ -49,5 +49,15 @@ namespace BjjAcademy.Models
                 OnPropertyChanged();
             }
         }
+
+        public void AddTrainingActivity(string TrainingActivity)
+        {
+            _trainingActivities.Add(TrainingActivity);
+        }
+
+        public TrainingPlan()
+        {
+            _trainingActivities = new ObservableCollection<string>();
+        }
     }
 }

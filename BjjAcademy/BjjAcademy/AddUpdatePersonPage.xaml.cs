@@ -153,16 +153,7 @@ namespace BjjAcademy
 
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
-            string TempPseudo;
-            if (String.IsNullOrEmpty(Pseudo.Text)) TempPseudo = "";
-            else TempPseudo = Pseudo.Text.Trim();
-            Person AboutToBeCreated = new Person()
-            {
-                Name = Name.Text.Trim(),
-                Surname = Surname.Text.Trim(),
-                Pseudo = TempPseudo
-            };
-            if (await CheckIfPersonExists(AboutToBeCreated))
+            if (await CheckIfPersonExists(this.person))
             {
                 AddUpdatePerson();
                 await Navigation.PopModalAsync();
@@ -404,13 +395,25 @@ namespace BjjAcademy
             else this.CirclePhoto.IsVisible = true;
         }
 
-        private async Task<bool> CheckIfPersonExists(Person person)
+        private async Task<bool> CheckIfPersonExists(Person person = null)
         {
             foreach (Person ListedPerson in PersonsList)
             {
-                if (ListedPerson.Name == person.Name && ListedPerson.Surname == person.Surname
-                    && ListedPerson.Pseudo == person.Pseudo)
+                string TempPseudo;
+                if (String.IsNullOrEmpty(Pseudo.Text)) TempPseudo = "";
+                else TempPseudo = Pseudo.Text.Trim();
+                Person AboutToBeCreated = new Person()
                 {
+                    Name = Name.Text.Trim(),
+                    Surname = Surname.Text.Trim(),
+                    Pseudo = TempPseudo
+                };
+
+                if (ListedPerson.Name == AboutToBeCreated.Name && ListedPerson.Surname == AboutToBeCreated.Surname
+                    && ListedPerson.Pseudo == AboutToBeCreated.Pseudo)
+                {
+                    //Check if saving data on existing person.
+                    if (ListedPerson == person) return true;
                     await DisplayAlert("Błąd", "Osoba istnieje już w bazie danych!", "OK");
                     return false;
                 }
@@ -418,6 +421,7 @@ namespace BjjAcademy
 
             return true;
         }
+
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace BjjAcademy.TrainingRelatedPages
         #region variables
 
         private Models.TrainingPlan trainingPlan;
+        private ObservableCollection<string> exercisesList;
 
         #endregion
 
@@ -27,6 +29,14 @@ namespace BjjAcademy.TrainingRelatedPages
         private void ReceiveTrainingPlanObject(Training source, Models.TrainingPlan trainingPlanArg)
         {
             trainingPlan = trainingPlanArg;
+            LblTrainingPlanName.Text = trainingPlan.Name;
+            exercisesList = trainingPlan.GetTrainingActivities();
+            ExercisesList.ItemsSource = exercisesList;
+        }
+
+        private void AddExercise_Activated(object sender, EventArgs e)
+        {
+
         }
     }
 }
