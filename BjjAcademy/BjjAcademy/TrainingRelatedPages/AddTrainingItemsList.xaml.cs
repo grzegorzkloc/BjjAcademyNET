@@ -14,37 +14,46 @@ namespace BjjAcademy
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddTrainingItemsList : ContentPage
     {
-        private TrainingPlan _trainingPlan;
-        private ObservableCollection<Editor> _trainingItems;
+        #region Variables
+
+        #endregion
+
+        #region Constructor
 
         public AddTrainingItemsList()
         {
-            _trainingPlan = new TrainingPlan();
-
-            this.Entries = new StackLayout();
-            _trainingItems = new ObservableCollection<Editor>();
-            var editor = new Editor();
-            _trainingItems.Add(editor);
-            this.Entries.Children.Add(editor);
             InitializeComponent();
         }
 
-        private void AddTrainingItem_Activated(object sender, EventArgs e)
+        #endregion
+
+        #region Events
+
+        private void TrainingPlanName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Editor editor = new Editor()
-            {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HeightRequest = 100
-            };
-            _trainingItems.Add(editor);
-            this.Entries.Children.Add(editor);
+            if (e.NewTextValue.Length > 0) this.AddBtn.IsEnabled = true;
+            else this.AddBtn.IsEnabled = false;
         }
 
-        private void DeleteTrainingItem_Activated(object sender, EventArgs e)
+        private void CancelBtn_Clicked(object sender, EventArgs e)
         {
-            if (_trainingItems.Count == 0) return;
-            this.Entries.Children.Remove(_trainingItems.Last<Editor>());
-            _trainingItems.RemoveAt(_trainingItems.Count - 1);
+            Navigation.PopAsync();
         }
+
+        private async void AddBtn_Clicked(object sender, EventArgs e)
+        {
+            TrainingPlan trainingPlan = new TrainingPlan()
+            {
+                Name = this.TrainingPlanName.Text
+            };
+
+            await DisplayAlert("Plan treningowy dodany", "Plan treningowy o nazwie " + this.TrainingPlanName.Text + " dodany", "OK");
+
+            await Navigation.PopAsync();
+
+            MessagingCenter.Send(this, GlobalMethods.MessagingCenterMessage.TrainingPlanAdded, trainingPlan);
+        }
+
+        #endregion
     }
 }

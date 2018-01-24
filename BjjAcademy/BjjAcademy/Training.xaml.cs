@@ -28,7 +28,9 @@ namespace BjjAcademy
         {
             startup = true;
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+            MessagingCenter.Subscribe<AddTrainingItemsList, TrainingPlan>(this, GlobalMethods.MessagingCenterMessage.TrainingPlanAdded, TrainingPlanAdded);
             InitializeComponent();
+            BindingContext = this;
         }
 
         protected override async void OnAppearing()
@@ -53,6 +55,26 @@ namespace BjjAcademy
         private async void InitialOperations()
         {
             await _connection.CreateTableAsync<TrainingPlan>();
+        }
+
+        private async void TrainingPlanAdded(AddTrainingItemsList source, TrainingPlan trainingPlan)
+        {
+            startup = false;
+            TrainingPlans.Add(trainingPlan);
+            await _connection.InsertAsync(trainingPlan);
+        }
+
+        private async void miDelete_Clicked(object sender, EventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            var trainingPlan = menuItem.CommandParameter as TrainingPlan;
+
+            if (await DisplayAlert("Uwaga", "Czy jesteś pewny, że chcesz skasować plan treningowy: "
+                + trainingPlan.Name + "?", "Kasuj", "Anuluj"))
+            {
+                await _connection.DeleteAsync(trainingPlan);
+                TrainingPlans.Remove(trainingPlan);
+            }
         }
     }
 }

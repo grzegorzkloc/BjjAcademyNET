@@ -10,7 +10,13 @@
             <ListView x:Name="BjjTrainingList" ItemSelected="BjjTrainingList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Name}"/>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem x:Name="miDelete" Text="Usuń" Clicked="miDelete_Clicked" IsDestructive="True"
+                                          CommandParameter="{Binding .}"/>
+                            </ViewCell.ContextActions>
+                            <Label Text="{Binding Name}" FontSize="Medium"/>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

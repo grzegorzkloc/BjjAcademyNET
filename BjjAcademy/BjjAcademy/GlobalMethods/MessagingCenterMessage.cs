@@ -9,5 +9,6 @@ namespace BjjAcademy.GlobalMethods
     public static class MessagingCenterMessage
     {
         public static readonly string PersonUpdated = "PersonUpdated";
+        public static readonly string TrainingPlanAdded = "TrainingPlanAdded";
     }
 }
