@@ -47,9 +47,13 @@ namespace BjjAcademy
             Navigation.PushAsync(new AddTrainingItemsList());
         }
 
-        private void BjjTrainingList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void BjjTrainingList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-
+            if (e.SelectedItem == null)
+                return;
+            await Navigation.PushAsync(new TrainingRelatedPages.TrainingPlan());
+            MessagingCenter.Send(this, GlobalMethods.MessagingCenterMessage.TrainingPlanViewed, e.SelectedItem as TrainingPlan);
+            BjjTrainingList.SelectedItem = null;
         }
 
         private async void InitialOperations()

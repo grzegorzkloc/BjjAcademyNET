@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BjjAcademy.Training">
+             x:Class="BjjAcademy.Training"
+             Padding="5">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddTrainingUnit" Text="Dodaj trening" Activated="AddTrainingUnit_Activated"/>
     </ContentPage.ToolbarItems>
@@ -15,7 +16,7 @@
                                 <MenuItem x:Name="miDelete" Text="Usuń" Clicked="miDelete_Clicked" IsDestructive="True"
                                           CommandParameter="{Binding .}"/>
                             </ViewCell.ContextActions>
-                            <Label Text="{Binding Name}" FontSize="Medium"/>
+                            <Label Text="{Binding Name}" FontSize="Large"/>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
