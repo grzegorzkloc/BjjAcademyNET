@@ -73,8 +73,8 @@
     <Compile Include="TrainingRelatedPages\AddUpdateExercise.xaml.cs">
       <DependentUpon>AddUpdateExercise.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TrainingRelatedPages\TrainingPlan.xaml.cs">
-      <DependentUpon>TrainingPlan.xaml</DependentUpon>
+    <Compile Include="TrainingRelatedPages\TrainingPlanPage.xaml.cs">
+      <DependentUpon>TrainingPlanPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +172,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TrainingRelatedPages\TrainingPlan.xaml">
+    <EmbeddedResource Include="TrainingRelatedPages\TrainingPlanPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

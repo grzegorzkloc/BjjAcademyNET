@@ -51,8 +51,10 @@ namespace BjjAcademy
         {
             if (e.SelectedItem == null)
                 return;
-            await Navigation.PushAsync(new TrainingRelatedPages.TrainingPlan());
-            MessagingCenter.Send(this, GlobalMethods.MessagingCenterMessage.TrainingPlanViewed, e.SelectedItem as TrainingPlan);
+
+            TrainingPlan PlanToBeViewed = e.SelectedItem as TrainingPlan;
+
+            await Navigation.PushAsync(new TrainingRelatedPages.TrainingPlanPage(PlanToBeViewed));
             BjjTrainingList.SelectedItem = null;
         }
 

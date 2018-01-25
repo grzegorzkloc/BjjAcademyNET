@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace BjjAcademy.Models
 {
     [Table("TrainingPlans")]
-    class TrainingPlan : INotifyPropertyChanged
+    public class TrainingPlan : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
