@@ -54,7 +54,6 @@ namespace BjjAcademy.Models
         public TrainingPlan()
         {
             ObservableCollection<string> temp = new ObservableCollection<string>();
-            //temp.Add("");
             TrainingActivitiesBlob = JsonConvert.SerializeObject(temp);
         }
     }

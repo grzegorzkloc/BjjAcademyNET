@@ -37,7 +37,7 @@ namespace BjjAcademy
 
         private void CancelBtn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PopAsync();
+            Navigation.PopModalAsync();
         }
 
         private async void AddBtn_Clicked(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace BjjAcademy
 
             await DisplayAlert("Plan treningowy dodany", "Plan treningowy o nazwie " + this.TrainingPlanName.Text + " dodany", "OK");
 
-            await Navigation.PopAsync();
+            await Navigation.PopModalAsync();
 
             MessagingCenter.Send(this, GlobalMethods.MessagingCenterMessage.TrainingPlanAdded, trainingPlan);
         }

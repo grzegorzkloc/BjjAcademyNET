@@ -41,7 +41,7 @@ namespace BjjAcademy
 
         private void AddTrainingUnit_Activated(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AddTrainingItemsList());
+            Navigation.PushModalAsync(new AddTrainingItemsList());
         }
 
         private async void BjjTrainingList_ItemSelected(object sender, SelectedItemChangedEventArgs e)

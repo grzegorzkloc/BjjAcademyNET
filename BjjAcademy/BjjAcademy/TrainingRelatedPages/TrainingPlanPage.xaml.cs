@@ -9,6 +9,7 @@ using BjjAcademy.Persistence;
 using Newtonsoft.Json;
 using SQLite;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace BjjAcademy.TrainingRelatedPages
@@ -93,6 +94,19 @@ namespace BjjAcademy.TrainingRelatedPages
             _connection.UpdateAsync(trainingPlan);
         }
 
+        private void ExercisesList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+            ExercisesList.SelectedItem = null;
+        }
+
+        private void MiDelete_Clicked(object sender, EventArgs e)
+        {
+            var ChosenMenuItem = (MenuItem)sender;
+            var index = TrainingActivities.IndexOf(ChosenMenuItem.CommandParameter);
+            TrainingActivities.RemoveAt(index);
+        }
     }
 
 
