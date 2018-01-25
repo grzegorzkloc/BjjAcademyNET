@@ -33,12 +33,9 @@ namespace BjjAcademy
             BindingContext = this;
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             if (startup) InitialOperations();
-            var Trainings = await _connection.Table<TrainingPlan>().ToListAsync();
-            TrainingPlans = new ObservableCollection<TrainingPlan>(Trainings);
-            this.BjjTrainingList.ItemsSource = TrainingPlans;
             base.OnAppearing();
         }
 
@@ -54,7 +51,7 @@ namespace BjjAcademy
 
             TrainingPlan PlanToBeViewed = e.SelectedItem as TrainingPlan;
 
-            await Navigation.PushAsync(new TrainingRelatedPages.TrainingPlanPage(PlanToBeViewed));
+            await Navigation.PushAsync(new TrainingRelatedPages.TrainingPlanPage(ref PlanToBeViewed));
             BjjTrainingList.SelectedItem = null;
         }
 
@@ -62,6 +59,10 @@ namespace BjjAcademy
         {
             startup = false;
             await _connection.CreateTableAsync<TrainingPlan>();
+            var Trainings = await _connection.Table<TrainingPlan>().ToListAsync();
+            TrainingPlans = new ObservableCollection<TrainingPlan>(Trainings);
+            this.BjjTrainingList.ItemsSource = TrainingPlans;
+
         }
 
         private async void TrainingPlanAdded(AddTrainingItemsList source, TrainingPlan trainingPlan)

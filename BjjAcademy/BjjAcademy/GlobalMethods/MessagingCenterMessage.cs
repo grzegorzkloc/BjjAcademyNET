@@ -10,8 +10,6 @@ namespace BjjAcademy.GlobalMethods
     {
         public static readonly string PersonUpdated = "PersonUpdated";
         public static readonly string TrainingPlanAdded = "TrainingPlanAdded";
-        public static readonly string TrainingPlanViewed = "TrainingPlanViewed";
-        public static readonly string ExerciseAdded = "ExerciseAdded";
-        public static readonly string ExerciseUpdated = "ExerciseUpdated";
+        public static readonly string FinishedEditingTrainingPlan = "FinishedEditingTrainingPlan";
     }
 }

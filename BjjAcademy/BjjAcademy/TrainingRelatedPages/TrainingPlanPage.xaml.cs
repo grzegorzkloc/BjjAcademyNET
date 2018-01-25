@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BjjAcademy.Models;
+using BjjAcademy.Persistence;
+using Newtonsoft.Json;
+using SQLite;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,10 +19,12 @@ namespace BjjAcademy.TrainingRelatedPages
         #region variables
 
         private Models.TrainingPlan trainingPlan;
+        private ObservableCollection<string> TrainingActivities;
+        private SQLiteAsyncConnection _connection;
 
         #endregion
 
-        public TrainingPlanPage(TrainingPlan TrainingPlanObject)
+        public TrainingPlanPage(ref TrainingPlan TrainingPlanObject)
         {
             InitializeComponent();
 
@@ -27,39 +32,65 @@ namespace BjjAcademy.TrainingRelatedPages
 
             LblTrainingPlanName.Text = trainingPlan.Name;
 
-            ExercisesList.ItemsSource = trainingPlan.GetTrainingActivities();
+            _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
 
-            MessagingCenter.Subscribe<TrainingRelatedPages.AddUpdateExercise, string>(this,
-                GlobalMethods.MessagingCenterMessage.ExerciseAdded, ReceivedNewExercise);
+            TrainingActivities = new ObservableCollection<string>();
 
-            MessagingCenter.Subscribe<TrainingRelatedPages.AddUpdateExercise, string>(this,
-                GlobalMethods.MessagingCenterMessage.ExerciseUpdated, ReceivedUpdatedExercise);
+            DeserializeTrainingPlan();
+
+            ExercisesList.ItemsSource = TrainingActivities;
         }
 
         public TrainingPlanPage()
         {
             InitializeComponent();
-
-            MessagingCenter.Subscribe<TrainingRelatedPages.AddUpdateExercise, string>(this,
-                GlobalMethods.MessagingCenterMessage.ExerciseAdded, ReceivedNewExercise);
-
-            MessagingCenter.Subscribe<TrainingRelatedPages.AddUpdateExercise, string>(this,
-                GlobalMethods.MessagingCenterMessage.ExerciseUpdated, ReceivedUpdatedExercise);
-        }
-
-        private void ReceivedUpdatedExercise(AddUpdateExercise source, string exercise)
-        {
-            //trainingPlan.AddTrainingActivity(exercise);
-        }
-
-        private void ReceivedNewExercise(AddUpdateExercise source, string exercise)
-        {
-            trainingPlan.AddTrainingActivity(exercise);
         }
 
         private void AddExercise_Activated(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AddUpdateExercise());
+            SlAddExercise.IsVisible = true;
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return base.OnBackButtonPressed();
+        }
+
+        private void CancelBtn_Clicked(object sender, EventArgs e)
+        {
+            SlAddExercise.IsVisible = false;
+            EdtrExercise.Text = "";
+        }
+
+        private async void AddBtn_Clicked(object sender, EventArgs e)
+        {
+            TrainingActivities.Add(EdtrExercise.Text);
+            await DisplayAlert("Dodano", "Dodano nowe ćwiczenie", "OK");
+            EdtrExercise.Text = "";
+            SlAddExercise.IsVisible = false;
+        }
+
+        private void EdtrExercise_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length > 0) AddBtn.IsEnabled = true;
+            else AddBtn.IsEnabled = false;
+        }
+
+        protected override void OnDisappearing()
+        {
+            SerializeTrainingPlan();
+            base.OnDisappearing();
+        }
+
+        private void DeserializeTrainingPlan()
+        {
+            TrainingActivities = JsonConvert.DeserializeObject<ObservableCollection<string>>(trainingPlan.TrainingActivitiesBlob);
+        }
+
+        private void SerializeTrainingPlan()
+        {
+            trainingPlan.TrainingActivitiesBlob = JsonConvert.SerializeObject(TrainingActivities);
+            _connection.UpdateAsync(trainingPlan);
         }
 
     }

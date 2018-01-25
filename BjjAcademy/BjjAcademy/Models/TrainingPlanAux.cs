@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using SQLite;
+﻿using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,8 +10,7 @@ using System.Threading.Tasks;
 
 namespace BjjAcademy.Models
 {
-    [Table("TrainingPlans")]
-    public class TrainingPlan : INotifyPropertyChanged
+    public class TrainingPlanAux : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,12 +20,11 @@ namespace BjjAcademy.Models
         }
 
         private string _name;
-        private string _trainingActivitiesBlob;
+        private ObservableCollection<string> _trainingActivities;
 
-        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public string Name
+        public String Name
         {
             get { return _name; }
             set
@@ -39,23 +36,26 @@ namespace BjjAcademy.Models
             }
         }
 
-        public string TrainingActivitiesBlob
-        {
-            get { return _trainingActivitiesBlob; }
-            set
-            {
-                if (_trainingActivitiesBlob == value) return;
-                _trainingActivitiesBlob = value;
+        public ObservableCollection<string> GetTrainingActivities()
+        { return _trainingActivities; }
 
+        public void SetTrainingActivities(ObservableCollection<string> value)
+        {
+            if (value != null)
+            {
+                _trainingActivities = value;
                 OnPropertyChanged();
             }
         }
 
-        public TrainingPlan()
+        public void AddTrainingActivity(string TrainingActivity)
         {
-            ObservableCollection<string> temp = new ObservableCollection<string>();
-            //temp.Add("");
-            TrainingActivitiesBlob = JsonConvert.SerializeObject(temp);
+            _trainingActivities.Add(TrainingActivity);
+        }
+
+        public TrainingPlanAux()
+        {
+            _trainingActivities = new ObservableCollection<string>();
         }
     }
 }

@@ -1,24 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BjjAcademy.TrainingRelatedPages.TrainingPlanPage">
+             x:Class="BjjAcademy.TrainingRelatedPages.TrainingPlanPage" 
+             Padding="5">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name ="AddExercise" Text="Dodaj ćwiczenie" Order="Primary" Activated="AddExercise_Activated"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="LblTrainingPlanName" VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" FontSize="Large" 
-                   FontAttributes="Bold"/>
-            <ListView x:Name="ExercisesList" HasUnevenRows="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label Text="{Binding}" FontSize="Medium"/>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <StackLayout x:Name="SlAddExercise" IsVisible="False">
+                <Label Text="Dodaj ćwiczenie" HorizontalOptions="Center" FontSize="Medium"/>
+                <Editor x:Name="EdtrExercise" HeightRequest="150" TextChanged="EdtrExercise_TextChanged"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="Anuluj" x:Name="CancelBtn" HorizontalOptions="FillAndExpand" 
+                         Clicked="CancelBtn_Clicked" BackgroundColor="IndianRed" Grid.Row="0" Grid.Column="0"/>
+                    <Button Text="Dodaj" x:Name="AddBtn" HorizontalOptions="FillAndExpand" 
+                         Clicked="AddBtn_Clicked" BackgroundColor="LightGreen" IsEnabled="False" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+            </StackLayout>
+            <StackLayout>
+                <Label x:Name="LblTrainingPlanName" VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand" FontSize="Large" 
+                       FontAttributes="Bold"/>
+                <ListView x:Name="ExercisesList" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding}" FontSize="Medium"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
