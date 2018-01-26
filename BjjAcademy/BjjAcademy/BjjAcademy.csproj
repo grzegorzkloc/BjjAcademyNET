@@ -37,7 +37,6 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Models\TrainingPlanAux.cs" />
     <Compile Include="TrainingRelatedPages\AddTrainingItemsList.xaml.cs">
       <DependentUpon>AddTrainingItemsList.xaml</DependentUpon>
     </Compile>
