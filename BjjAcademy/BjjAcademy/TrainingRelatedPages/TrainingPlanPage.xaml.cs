@@ -80,8 +80,6 @@ namespace BjjAcademy.TrainingRelatedPages
             SlAddExercise.IsVisible = true;
         }
 
-
-
         private void CancelBtn_Clicked(object sender, EventArgs e)
         {
             SlAddExercise.IsVisible = false;
@@ -106,11 +104,14 @@ namespace BjjAcademy.TrainingRelatedPages
             ExercisesList.SelectedItem = null;
         }
 
-        private void MiDelete_Clicked(object sender, EventArgs e)
+        private async void MiDelete_Clicked(object sender, EventArgs e)
         {
-            var ChosenMenuItem = (MenuItem)sender;
-            var index = TrainingActivities.IndexOf(ChosenMenuItem.CommandParameter);
-            TrainingActivities.RemoveAt(index);
+            if (await DisplayAlert("Uwaga", "Czy na pewno chcesz usunąć ćwiczenie?", "Tak", "Nie"))
+            {
+                var ChosenMenuItem = (MenuItem)sender;
+                var index = TrainingActivities.IndexOf(ChosenMenuItem.CommandParameter);
+                TrainingActivities.RemoveAt(index);
+            }
         }
 
         private void MiEdit_Clicked(object sender, EventArgs e)
@@ -158,6 +159,12 @@ namespace BjjAcademy.TrainingRelatedPages
                 EdtrExercise.Text = "";
                 SlAddExercise.IsVisible = false;
             }
+        }
+
+        private void AddExerciseVisible(bool Isvisible)
+        {
+            SlAddExercise.IsVisible = IsVisible;
+            SlTrainingPlan.IsVisible = !IsVisible;
         }
 
         #endregion

@@ -23,7 +23,7 @@
                          Clicked="AddBtn_Clicked" BackgroundColor="LightGreen" IsEnabled="False" Grid.Row="0" Grid.Column="1"/>
                 </Grid>
             </StackLayout>
-            <StackLayout VerticalOptions="FillAndExpand">
+            <StackLayout x:Name="SlTrainingPlan" IsVisible="True" VerticalOptions="FillAndExpand">
                 <Label x:Name="LblTrainingPlanName" VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand" FontSize="Large" 
                        FontAttributes="Bold"/>
@@ -34,11 +34,11 @@
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.ContextActions>
-                                    <MenuItem x:Name="MiDelete" Text="Usuń"
-                                              Clicked="MiDelete_Clicked" IsDestructive="True"
-                                              CommandParameter="{Binding .}"/>
                                     <MenuItem x:Name="MiEdit" Text="Edytuj"
                                               Clicked="MiEdit_Clicked"  IsDestructive="False"
+                                              CommandParameter="{Binding .}"/>
+                                    <MenuItem x:Name="MiDelete" Text="Usuń"
+                                              Clicked="MiDelete_Clicked" IsDestructive="True"
                                               CommandParameter="{Binding .}"/>
                                 </ViewCell.ContextActions>
                                 <Label Text="{Binding}" FontSize="Large"/>
