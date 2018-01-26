@@ -8,7 +8,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout x:Name="SlAddExercise" IsVisible="False">
+            <StackLayout x:Name="SlAddExercise" IsVisible="False" VerticalOptions="FillAndExpand">
                 <Label Text="Dodaj ćwiczenie" HorizontalOptions="Center" FontSize="Medium"
                        FontAttributes="Bold"/>
                 <Editor x:Name="EdtrExercise" HeightRequest="120" TextChanged="EdtrExercise_TextChanged"/>
@@ -23,7 +23,7 @@
                          Clicked="AddBtn_Clicked" BackgroundColor="LightGreen" IsEnabled="False" Grid.Row="0" Grid.Column="1"/>
                 </Grid>
             </StackLayout>
-            <StackLayout x:Name="SlTrainingPlan" IsVisible="True" VerticalOptions="FillAndExpand">
+            <StackLayout>
                 <Label x:Name="LblTrainingPlanName" VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand" FontSize="Large" 
                        FontAttributes="Bold"/>

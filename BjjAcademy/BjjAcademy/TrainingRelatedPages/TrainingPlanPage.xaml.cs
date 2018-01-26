@@ -161,12 +161,6 @@ namespace BjjAcademy.TrainingRelatedPages
             }
         }
 
-        private void AddExerciseVisible(bool Isvisible)
-        {
-            SlAddExercise.IsVisible = IsVisible;
-            SlTrainingPlan.IsVisible = !IsVisible;
-        }
-
         #endregion
 
 
