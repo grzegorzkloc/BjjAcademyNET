@@ -13,6 +13,8 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
+                                <MenuItem x:Name="MiEdit" Text="Edytuj" Clicked="MiEdit_Clicked" IsDestructive="False"
+                                          CommandParameter="{Binding .}"/>
                                 <MenuItem x:Name="miDelete" Text="Usuń" Clicked="miDelete_Clicked" IsDestructive="True"
                                           CommandParameter="{Binding .}"/>
                             </ViewCell.ContextActions>

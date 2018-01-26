@@ -28,7 +28,7 @@ namespace BjjAcademy
         {
             startup = true;
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
-            MessagingCenter.Subscribe<AddTrainingItemsList, TrainingPlan>(this, GlobalMethods.MessagingCenterMessage.TrainingPlanAdded, TrainingPlanAdded);
+            MessagingCenter.Subscribe<AddUpdateTrainingItems, TrainingPlan>(this, GlobalMethods.MessagingCenterMessage.TrainingPlanAdded, TrainingPlanAdded);
             InitializeComponent();
             BindingContext = this;
         }
@@ -41,7 +41,7 @@ namespace BjjAcademy
 
         private void AddTrainingUnit_Activated(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new AddTrainingItemsList());
+            Navigation.PushModalAsync(new AddUpdateTrainingItems());
         }
 
         private async void BjjTrainingList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -65,7 +65,7 @@ namespace BjjAcademy
 
         }
 
-        private async void TrainingPlanAdded(AddTrainingItemsList source, TrainingPlan trainingPlan)
+        private async void TrainingPlanAdded(AddUpdateTrainingItems source, TrainingPlan trainingPlan)
         {
             TrainingPlans.Add(trainingPlan);
             await _connection.InsertAsync(trainingPlan);
@@ -82,6 +82,14 @@ namespace BjjAcademy
                 await _connection.DeleteAsync(trainingPlan);
                 TrainingPlans.Remove(trainingPlan);
             }
+        }
+
+        private void MiEdit_Clicked(object sender, EventArgs e)
+        {
+            var ChosenTrainingPlan = sender as MenuItem;
+            var IndexOfTrainingPlanNameToBeEdited = TrainingPlans.IndexOf(ChosenTrainingPlan.CommandParameter as TrainingPlan);
+            var TrainingPlanNameToBeEdited = TrainingPlans.ElementAt<TrainingPlan>(IndexOfTrainingPlanNameToBeEdited);
+            Navigation.PushModalAsync(new AddUpdateTrainingItems(ref TrainingPlanNameToBeEdited));
         }
     }
 }

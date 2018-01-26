@@ -37,8 +37,8 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TrainingRelatedPages\AddTrainingItemsList.xaml.cs">
-      <DependentUpon>AddTrainingItemsList.xaml</DependentUpon>
+    <Compile Include="TrainingRelatedPages\AddUpdateTrainingItems.xaml.cs">
+      <DependentUpon>AddUpdateTrainingItems.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddUpdatePersonPage.xaml.cs">
       <DependentUpon>AddUpdatePersonPage.xaml</DependentUpon>
@@ -163,7 +163,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TrainingRelatedPages\AddTrainingItemsList.xaml">
+    <EmbeddedResource Include="TrainingRelatedPages\AddUpdateTrainingItems.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
