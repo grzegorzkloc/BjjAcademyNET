@@ -22,12 +22,18 @@ namespace BjjAcademy.TrainingRelatedPages
         private Models.TrainingPlan trainingPlan;
         private ObservableCollection<string> TrainingActivities;
         private SQLiteAsyncConnection _connection;
+        private bool IsExerciseAdd;
+        private int IndexToEdit;
 
         #endregion
+
+        #region Constructor
 
         public TrainingPlanPage(ref TrainingPlan TrainingPlanObject)
         {
             InitializeComponent();
+
+            IsExerciseAdd = true;
 
             trainingPlan = TrainingPlanObject;
 
@@ -47,34 +53,14 @@ namespace BjjAcademy.TrainingRelatedPages
             InitializeComponent();
         }
 
-        private void AddExercise_Activated(object sender, EventArgs e)
-        {
-            SlAddExercise.IsVisible = true;
-        }
+        #endregion
+
+        #region Override
 
         protected override bool OnBackButtonPressed()
         {
+            SerializeTrainingPlan();
             return base.OnBackButtonPressed();
-        }
-
-        private void CancelBtn_Clicked(object sender, EventArgs e)
-        {
-            SlAddExercise.IsVisible = false;
-            EdtrExercise.Text = "";
-        }
-
-        private async void AddBtn_Clicked(object sender, EventArgs e)
-        {
-            TrainingActivities.Add(EdtrExercise.Text);
-            await DisplayAlert("Dodano", "Dodano nowe ćwiczenie", "OK");
-            EdtrExercise.Text = "";
-            SlAddExercise.IsVisible = false;
-        }
-
-        private void EdtrExercise_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (e.NewTextValue.Length > 0) AddBtn.IsEnabled = true;
-            else AddBtn.IsEnabled = false;
         }
 
         protected override void OnDisappearing()
@@ -83,15 +69,34 @@ namespace BjjAcademy.TrainingRelatedPages
             base.OnDisappearing();
         }
 
-        private void DeserializeTrainingPlan()
+        #endregion
+
+        #region Events
+
+        private void AddExercise_Activated(object sender, EventArgs e)
         {
-            TrainingActivities = JsonConvert.DeserializeObject<ObservableCollection<string>>(trainingPlan.TrainingActivitiesBlob);
+            IsExerciseAdd = true;
+            AddBtn.Text = "Dodaj";
+            SlAddExercise.IsVisible = true;
         }
 
-        private void SerializeTrainingPlan()
+
+
+        private void CancelBtn_Clicked(object sender, EventArgs e)
         {
-            trainingPlan.TrainingActivitiesBlob = JsonConvert.SerializeObject(TrainingActivities);
-            _connection.UpdateAsync(trainingPlan);
+            SlAddExercise.IsVisible = false;
+            EdtrExercise.Text = "";
+        }
+
+        private void AddBtn_Clicked(object sender, EventArgs e)
+        {
+            AddUpdateExercise(IsExerciseAdd);
+        }
+
+        private void EdtrExercise_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length > 0) AddBtn.IsEnabled = true;
+            else AddBtn.IsEnabled = false;
         }
 
         private void ExercisesList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -107,6 +112,61 @@ namespace BjjAcademy.TrainingRelatedPages
             var index = TrainingActivities.IndexOf(ChosenMenuItem.CommandParameter);
             TrainingActivities.RemoveAt(index);
         }
+
+        private void MiEdit_Clicked(object sender, EventArgs e)
+        {
+            IsExerciseAdd = false;
+            AddBtn.Text = "Zmień";
+
+            var ChosenMenuItem = (MenuItem)sender;
+            var index = TrainingActivities.IndexOf(ChosenMenuItem.CommandParameter);
+
+            SlAddExercise.IsVisible = true;
+            EdtrExercise.Text = TrainingActivities[index];
+
+            IndexToEdit = index;
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void DeserializeTrainingPlan()
+        {
+            TrainingActivities = JsonConvert.DeserializeObject<ObservableCollection<string>>(trainingPlan.TrainingActivitiesBlob);
+        }
+
+        private void SerializeTrainingPlan()
+        {
+            trainingPlan.TrainingActivitiesBlob = JsonConvert.SerializeObject(TrainingActivities);
+            _connection.UpdateAsync(trainingPlan);
+        }
+
+        private async void AddUpdateExercise(bool IsAdd)
+        {
+            if (IsAdd)
+            {
+                TrainingActivities.Add(EdtrExercise.Text);
+                await DisplayAlert("Dodano", "Dodano nowe ćwiczenie", "OK");
+                EdtrExercise.Text = "";
+                SlAddExercise.IsVisible = false;
+            }
+            else
+            {
+                TrainingActivities[IndexToEdit] = EdtrExercise.Text;
+                await DisplayAlert("Zaktualizowano", "Ćwiczenie zaktualizowane", "OK");
+                EdtrExercise.Text = "";
+                SlAddExercise.IsVisible = false;
+            }
+        }
+
+        #endregion
+
+
+
+
+
+
     }
 
 

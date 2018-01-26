@@ -37,6 +37,9 @@
                                     <MenuItem x:Name="MiDelete" Text="Usuń"
                                               Clicked="MiDelete_Clicked" IsDestructive="True"
                                               CommandParameter="{Binding .}"/>
+                                    <MenuItem x:Name="MiEdit" Text="Edytuj"
+                                              Clicked="MiEdit_Clicked"  IsDestructive="False"
+                                              CommandParameter="{Binding .}"/>
                                 </ViewCell.ContextActions>
                                 <Label Text="{Binding}" FontSize="Large"/>
                             </ViewCell>
