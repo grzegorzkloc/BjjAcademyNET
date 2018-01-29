@@ -40,6 +40,8 @@
                                     <MenuItem x:Name="MiDelete" Text="Usuń"
                                               Clicked="MiDelete_Clicked" IsDestructive="True"
                                               CommandParameter="{Binding .}"/>
+                                    <MenuItem x:Name="AddBlankLineBelow" Text="Wstaw pustą linię"
+                                              Clicked="AddBlankLineBelow_Clicked" IsDestructive="False" CommandParameter="{Binding .}"/>
                                 </ViewCell.ContextActions>
                                 <Label Text="{Binding}" FontSize="Large"/>
                             </ViewCell>

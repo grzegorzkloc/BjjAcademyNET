@@ -128,6 +128,13 @@ namespace BjjAcademy.TrainingRelatedPages
             IndexToEdit = index;
         }
 
+        private void AddBlankLineBelow_Clicked(object sender, EventArgs e)
+        {
+            var ChosenMenuItem = (MenuItem)sender;
+            var index = TrainingActivities.IndexOf(ChosenMenuItem.CommandParameter);
+            TrainingActivities.Insert(index + 1, "");
+        }
+
         #endregion
 
         #region Methods
@@ -162,10 +169,6 @@ namespace BjjAcademy.TrainingRelatedPages
         }
 
         #endregion
-
-
-
-
 
 
     }
