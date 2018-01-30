@@ -30,7 +30,6 @@ namespace BjjAcademy.Models
         private string _eventName;
         private BjjEventType _eventType;
         private string _participantsBlob;
-        private DateTime _eventDate;
 
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

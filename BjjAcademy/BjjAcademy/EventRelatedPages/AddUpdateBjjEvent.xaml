@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BjjAcademy.EventRelatedPages.AddUpdateBjjEvent">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Dodaj nazwę wydarzenia"
+                HorizontalOptions="CenterAndExpand" />
+            <Entry x:Name="BjjEventName" HorizontalOptions="FillAndExpand" TextChanged="BjjEventName_TextChanged"/>
+            <Picker x:Name="BjjEventType" Title="Typ wydarzenia" HorizontalOptions="CenterAndExpand" 
+                    SelectedIndexChanged="BjjEventType_SelectedIndexChanged">
+                <Picker.Items>
+                    <x:String>Lista osób</x:String>
+                    <x:String>Promocje</x:String>
+                </Picker.Items>
+            </Picker>
+            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Text="Anuluj" x:Name="CancelBtn" HorizontalOptions="FillAndExpand" 
+                         Clicked="CancelBtn_Clicked" BackgroundColor="IndianRed" Grid.Row="0" Grid.Column="0"/>
+            <Button Text="Dodaj" x:Name="AddBtn" HorizontalOptions="FillAndExpand" 
+                         Clicked="AddBtn_Clicked" BackgroundColor="LightGreen" IsEnabled="False" Grid.Row="0" Grid.Column="1"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,17 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BjjAcademy.BjjEvents">
+             x:Class="BjjAcademy.BjjEvents"
+             Padding="5">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddBjjEvent" Text="Dodaj wydarzenie" Order="Primary" Activated="AddBjjEvent_Activated"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <ListView x:Name="BjjEventList"
-                      HasUnevenRows="True">
+                      HasUnevenRows="True" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding EventName}" Detail="{Binding EventDate}"/>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem x:Name="MiDelete" Text="Usuń" IsDestructive="True"
+                                          Clicked="MiDelete_Clicked" CommandParameter="{Binding .}"/>
+                            </ViewCell.ContextActions>
+                            <Label Text="{Binding EventName}" FontSize="Large"/>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
