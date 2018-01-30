@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,7 +29,7 @@ namespace BjjAcademy.Models
 
         private string _eventName;
         private BjjEventType _eventType;
-        private ObservableCollection<int> _participants;
+        private string _participantsBlob;
         private DateTime _eventDate;
 
         [PrimaryKey, AutoIncrement]
@@ -47,12 +48,12 @@ namespace BjjAcademy.Models
         }
 
         //PersonId
-        public ObservableCollection<int> Participants
+        public string ParticipantsBlob
         {
-            get { return _participants; }
+            get { return _participantsBlob; }
             set
             {
-                _participants = value;
+                _participantsBlob = value;
                 OnPropertyChanged();
             }
         }
@@ -69,16 +70,18 @@ namespace BjjAcademy.Models
             }
         }
 
-        public DateTime EventDate
+        public BjjEvent()
         {
-            get { return _eventDate; }
-            set
-            {
-                if (_eventDate == value) return;
-                _eventDate = value;
+            ObservableCollection<int> temp = new ObservableCollection<int>();
+            ParticipantsBlob = JsonConvert.SerializeObject(temp);
+        }
 
-                OnPropertyChanged();
-            }
+        public BjjEvent(BjjEventType eventType)
+        {
+            ObservableCollection<int> temp = new ObservableCollection<int>();
+            ParticipantsBlob = JsonConvert.SerializeObject(temp);
+
+            EventType = eventType;
         }
     }
 }
