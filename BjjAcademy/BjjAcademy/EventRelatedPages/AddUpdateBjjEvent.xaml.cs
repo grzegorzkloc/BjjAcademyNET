@@ -1,4 +1,6 @@
 ﻿using BjjAcademy.Models;
+using BjjAcademy.Persistence;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,35 +18,67 @@ namespace BjjAcademy.EventRelatedPages
         #region Variables
 
         private bool IsAdd;
-
+        private SQLiteAsyncConnection _connection;
         private bool IsEventNameOK;
+
+        BjjEvent EventToBeEdited;
 
         #endregion
         public AddUpdateBjjEvent()
         {
+            IsAdd = true;
             InitializeComponent();
+        }
+
+        public AddUpdateBjjEvent(ref BjjEvent EventToEdit)
+        {
+            IsAdd = false;
+            InitializeComponent();
+            EventToBeEdited = EventToEdit;
+            SetFields(EventToBeEdited);
+        }
+
+        private void SetFields(BjjEvent eventToBeEdited)
+        {
+            AddBtn.Text = "Zmień";
+
+            BjjEventName.Text = eventToBeEdited.EventName;
+            if (eventToBeEdited.EventType == Models.BjjEventType.AttendanceList) BjjEventType.SelectedIndex = 0;
+            else if (eventToBeEdited.EventType == Models.BjjEventType.Promotion) BjjEventType.SelectedIndex = 1;
         }
 
         private void CancelBtn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PopAsync();
+            Navigation.PopModalAsync();
         }
 
-        private void AddBtn_Clicked(object sender, EventArgs e)
+        private async void AddBtn_Clicked(object sender, EventArgs e)
         {
-            BjjEventType TempEventType = new Models.BjjEventType();
-            if (BjjEventType.SelectedIndex == 0) TempEventType = Models.BjjEventType.AttendanceList;
-            else if (BjjEventType.SelectedIndex == 1) TempEventType = Models.BjjEventType.Promotion;
-
-            BjjEvent NewBjjEvent = new BjjEvent
+            if (IsAdd)
             {
-                EventName = BjjEventName.Text,
-                EventType = TempEventType
-            };
+                BjjEventType TempEventType = new Models.BjjEventType();
+                if (BjjEventType.SelectedIndex == 0) TempEventType = Models.BjjEventType.AttendanceList;
+                else if (BjjEventType.SelectedIndex == 1) TempEventType = Models.BjjEventType.Promotion;
 
-            Navigation.PopAsync();
+                BjjEvent NewBjjEvent = new BjjEvent
+                {
+                    EventName = BjjEventName.Text,
+                    EventType = TempEventType
+                };
 
-            MessagingCenter.Send<AddUpdateBjjEvent, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.AddedBjjEvent, NewBjjEvent);
+                await Navigation.PopModalAsync();
+
+                MessagingCenter.Send<AddUpdateBjjEvent, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.AddedBjjEvent, NewBjjEvent);
+            }
+            else
+            {
+                EventToBeEdited.EventName = BjjEventName.Text;
+                if (BjjEventType.SelectedIndex == 0) EventToBeEdited.EventType = Models.BjjEventType.AttendanceList;
+                else if (BjjEventType.SelectedIndex == 1) EventToBeEdited.EventType = Models.BjjEventType.Promotion;
+                _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+                await _connection.UpdateAsync(EventToBeEdited);
+                await Navigation.PopModalAsync();
+            }
         }
 
         private void BjjEventName_TextChanged(object sender, TextChangedEventArgs e)
@@ -86,3 +120,7 @@ namespace BjjAcademy.EventRelatedPages
         }
     }
 }
+
+//TODO Add Display Alerts on Add and Edit
+
+//TODO Clean up this mess (this file)

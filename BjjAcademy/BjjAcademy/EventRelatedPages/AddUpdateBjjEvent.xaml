@@ -6,8 +6,9 @@
         <StackLayout>
             <Label Text="Dodaj nazwę wydarzenia"
                 HorizontalOptions="CenterAndExpand" />
-            <Entry x:Name="BjjEventName" HorizontalOptions="FillAndExpand" TextChanged="BjjEventName_TextChanged"/>
-            <Picker x:Name="BjjEventType" Title="Typ wydarzenia" HorizontalOptions="CenterAndExpand" 
+            <Entry x:Name="BjjEventName" HorizontalOptions="FillAndExpand" TextChanged="BjjEventName_TextChanged"
+                   Keyboard="Text"/>
+            <Picker x:Name="BjjEventType" Title="Typ wydarzenia" HorizontalOptions="FillAndExpand" 
                     SelectedIndexChanged="BjjEventType_SelectedIndexChanged">
                 <Picker.Items>
                     <x:String>Lista osób</x:String>

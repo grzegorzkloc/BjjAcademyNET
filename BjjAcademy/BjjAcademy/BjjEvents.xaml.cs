@@ -53,7 +53,7 @@ namespace BjjAcademy
 
         private void AddBjjEvent_Activated(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AddUpdateBjjEvent());
+            Navigation.PushModalAsync(new AddUpdateBjjEvent());
         }
 
         private async void MiDelete_Clicked(object sender, EventArgs e)
@@ -65,6 +65,13 @@ namespace BjjAcademy
             await _connection.DeleteAsync(EventToDelete);
 
             EventsList.RemoveAt(index);
+        }
+
+        private void MiEdit_Clicked(object sender, EventArgs e)
+        {
+            var EventToEditIndex = EventsList.IndexOf((sender as MenuItem).CommandParameter as BjjEvent);
+            var EventToEdit = EventsList.ElementAt<BjjEvent>(EventToEditIndex);
+            Navigation.PushModalAsync(new AddUpdateBjjEvent(ref EventToEdit));
         }
 
         #endregion
@@ -89,6 +96,7 @@ namespace BjjAcademy
             EventsList.Add(args as BjjEvent);
             await _connection.InsertAsync(args as BjjEvent);
         }
+
 
         #endregion
 
