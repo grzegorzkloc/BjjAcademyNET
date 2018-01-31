@@ -14,6 +14,7 @@ using BjjAcademy;
 using System.Collections.ObjectModel;
 using BjjAcademy.GlobalMethods;
 using PCLStorage;
+using BjjAcademy.EventRelatedPages;
 
 namespace BjjAcademy
 {
@@ -44,10 +45,13 @@ namespace BjjAcademy
 
         protected override async void OnAppearing()
         {
+            //TODO Fires twice. Find solution.
+
             /* Initial operations consist of creating tables and filling the 
              * belt table on app's first run */
             if (startup)
             {
+                startup = false;
                 InitialOperations();
 
                 var Persons = await _connection.Table<Person>().ToListAsync();
@@ -64,9 +68,9 @@ namespace BjjAcademy
                     }
                 }
                 PersonsList = new ObservableCollection<Person>(Persons);
-                startup = false;
                 StudentList.ItemsSource = PersonsList;
                 MessagingCenter.Subscribe<AddUpdatePersonPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.PersonUpdated, PersonUpdated);
+                MessagingCenter.Subscribe<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated, SendPersonsListToSingleEventPage);
             }
             UpdateListview();
             base.OnAppearing();
@@ -159,6 +163,7 @@ namespace BjjAcademy
 
         private void PersonUpdated(AddUpdatePersonPage source, ObservableCollection<Person> list)
         {
+            //TODO check if this can be deleted
             PersonsList = list;
             UpdateListview();
         }
@@ -169,6 +174,10 @@ namespace BjjAcademy
             //StudentList.ItemsSource = PersonsList;
         }
 
+        private void SendPersonsListToSingleEventPage(SingleEventPage source)
+        {
+            MessagingCenter.Send<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage, PersonsList);
+        }
         #endregion
     }
 }

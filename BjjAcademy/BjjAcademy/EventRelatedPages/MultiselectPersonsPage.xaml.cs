@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,12 @@ namespace BjjAcademy.EventRelatedPages
         public MultiselectPersonsPage()
         {
             InitializeComponent();
+        }
+
+        public MultiselectPersonsPage(ObservableCollection<Person> Participants)
+        {
+            InitializeComponent();
+
         }
     }
 }

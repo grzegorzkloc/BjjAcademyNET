@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,22 +14,57 @@ namespace BjjAcademy.EventRelatedPages
     public partial class SingleEventPage : ContentPage
     {
         private ObservableCollection<Person> Participants;
+        private Models.BjjEvent _bjjEvent;
 
         public SingleEventPage()
         {
+            _bjjEvent = null;
             InitializeComponent();
         }
 
         public SingleEventPage(Models.BjjEvent Event)
         {
-            Participants = new ObservableCollection<Person>();
-            ParticipantsList.ItemsSource = Participants;
+            MessagingCenter.Subscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage, PopulateReceivedList);
+            _bjjEvent = Event;
+            MessagingCenter.Send<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated);
             InitializeComponent();
         }
 
-        private void MiAddPeople_Clicked(object sender, EventArgs e)
+        private void PopulateReceivedList(Students sender, ObservableCollection<Person> args)
         {
+            //TODO Check if List Contains somenthing
+            var PersonsList = args;
+            var ParticipantsIdList = new ObservableCollection<int>(Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<int>>(_bjjEvent.ParticipantsBlob));
+            foreach (var Id in ParticipantsIdList)
+            {
+                foreach (var Person in PersonsList)
+                {
+                    if (Person.Id == Id) Participants.Add(Person);
+                }
+            }
+        }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ParticipantsList.ItemsSource = Participants;
+        }
+
+        protected override void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe<Students>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage);
+            base.OnDisappearing();
+            //TODO Serialize object and save to DB
+        }
+
+        private void MiAddPeople_Activated(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+
+            Navigation.PushModalAsync(new MultiselectPersonsPage(Participants));
+
+            ParticipantsList.SelectedItem = null;
         }
     }
 }

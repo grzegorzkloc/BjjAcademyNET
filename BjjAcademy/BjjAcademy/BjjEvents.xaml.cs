@@ -107,7 +107,7 @@ namespace BjjAcademy
                 return;
 
             if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.AttendanceList)
-                Navigation.PushAsync(new SingleEventPage());
+                Navigation.PushAsync(new SingleEventPage(e.SelectedItem as Models.BjjEvent));
             else if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.Promotion)
                 Navigation.PushAsync(new PromotionPage(e.SelectedItem as Models.BjjEvent));
             BjjEventList.SelectedItem = null;
