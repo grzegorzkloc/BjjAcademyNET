@@ -98,8 +98,19 @@ namespace BjjAcademy
         }
 
 
+
         #endregion
 
+        private void BjjEventList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
 
+            if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.AttendanceList)
+                Navigation.PushAsync(new SingleEventPage());
+            else if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.Promotion)
+                Navigation.PushAsync(new PromotionPage(e.SelectedItem as Models.BjjEvent));
+            BjjEventList.SelectedItem = null;
+        }
     }
 }

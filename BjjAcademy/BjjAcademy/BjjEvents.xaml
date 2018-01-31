@@ -8,8 +8,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <ListView x:Name="BjjEventList"
-                      HasUnevenRows="True" >
+            <ListView x:Name="BjjEventList" ItemSelected="BjjEventList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

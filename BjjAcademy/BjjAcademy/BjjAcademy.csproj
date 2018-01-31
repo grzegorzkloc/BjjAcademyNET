@@ -40,6 +40,15 @@
     <Compile Include="EventRelatedPages\AddUpdateBjjEvent.xaml.cs">
       <DependentUpon>AddUpdateBjjEvent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EventRelatedPages\MultiselectPersonsPage.xaml.cs">
+      <DependentUpon>MultiselectPersonsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventRelatedPages\PromotionPage.xaml.cs">
+      <DependentUpon>PromotionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventRelatedPages\SingleEventPage.xaml.cs">
+      <DependentUpon>SingleEventPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TrainingRelatedPages\AddUpdateTrainingItems.xaml.cs">
       <DependentUpon>AddUpdateTrainingItems.xaml</DependentUpon>
     </Compile>
@@ -179,6 +188,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EventRelatedPages\AddUpdateBjjEvent.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EventRelatedPages\SingleEventPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EventRelatedPages\PromotionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EventRelatedPages\MultiselectPersonsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
