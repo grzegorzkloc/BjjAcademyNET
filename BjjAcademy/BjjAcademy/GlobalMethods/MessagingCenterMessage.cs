@@ -14,5 +14,6 @@ namespace BjjAcademy.GlobalMethods
         public static readonly string AddedBjjEvent = "AddedBjjEvent";
         public static readonly string SingleEventPageCreated = "SingleEventPageCreated";
         public static readonly string SentToSingleEventPage = "SentToSingleEventPage";
+        public static readonly string MultiselectPersonsSent = "MultiselectPersonsSent";
     }
 }
