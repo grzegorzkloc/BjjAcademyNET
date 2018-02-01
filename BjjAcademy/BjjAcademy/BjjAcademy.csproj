@@ -49,6 +49,7 @@
     <Compile Include="EventRelatedPages\SingleEventPage.xaml.cs">
       <DependentUpon>SingleEventPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SelectedPerson.cs" />
     <Compile Include="TrainingRelatedPages\AddUpdateTrainingItems.xaml.cs">
       <DependentUpon>AddUpdateTrainingItems.xaml</DependentUpon>
     </Compile>

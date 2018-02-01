@@ -14,6 +14,7 @@ namespace BjjAcademy.EventRelatedPages
     public partial class SingleEventPage : ContentPage
     {
         private ObservableCollection<Person> Participants;
+        private ObservableCollection<Person> AllPeople;
         private Models.BjjEvent _bjjEvent;
 
         public SingleEventPage()
@@ -27,17 +28,18 @@ namespace BjjAcademy.EventRelatedPages
             MessagingCenter.Subscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage, PopulateReceivedList);
             _bjjEvent = Event;
             MessagingCenter.Send<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated);
+            Participants = new ObservableCollection<Person>();
             InitializeComponent();
         }
 
         private void PopulateReceivedList(Students sender, ObservableCollection<Person> args)
         {
             //TODO Check if List Contains somenthing
-            var PersonsList = args;
+            AllPeople = args;
             var ParticipantsIdList = new ObservableCollection<int>(Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<int>>(_bjjEvent.ParticipantsBlob));
             foreach (var Id in ParticipantsIdList)
             {
-                foreach (var Person in PersonsList)
+                foreach (var Person in AllPeople)
                 {
                     if (Person.Id == Id) Participants.Add(Person);
                 }
@@ -62,7 +64,7 @@ namespace BjjAcademy.EventRelatedPages
             if (e.SelectedItem == null)
                 return;
 
-            Navigation.PushModalAsync(new MultiselectPersonsPage(Participants));
+            Navigation.PushModalAsync(new MultiselectPersonsPage(AllPeople, Participants));
 
             ParticipantsList.SelectedItem = null;
         }
