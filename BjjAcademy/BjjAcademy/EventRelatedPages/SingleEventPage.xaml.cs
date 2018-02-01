@@ -95,5 +95,10 @@ namespace BjjAcademy.EventRelatedPages
 
             ParticipantsList.SelectedItem = null;
         }
+
+        private void MiDelete_Clicked(object sender, EventArgs e)
+        {
+            Participants.Remove((sender as MenuItem).CommandParameter as Person);
+        }
     }
 }
