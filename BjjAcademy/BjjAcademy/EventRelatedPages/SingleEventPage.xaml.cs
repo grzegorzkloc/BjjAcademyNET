@@ -29,7 +29,11 @@ namespace BjjAcademy.EventRelatedPages
         public SingleEventPage(Models.BjjEvent Event)
         {
             Participants = new ObservableCollection<Person>();
+
+            MessagingCenter.Unsubscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage);
             MessagingCenter.Subscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage, PopulateReceivedList);
+
+            MessagingCenter.Unsubscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent);
             MessagingCenter.Subscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent, ReceiveMultiselectedPersons);
             _bjjEvent = Event;
             MessagingCenter.Send<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated);
@@ -67,8 +71,8 @@ namespace BjjAcademy.EventRelatedPages
 
         protected override async void OnDisappearing()
         {
-            MessagingCenter.Unsubscribe<Students>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage);
-            MessagingCenter.Unsubscribe<MultiselectPersonsPage>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent);
+            MessagingCenter.Unsubscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage);
+            //MessagingCenter.Unsubscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent);
 
             ObservableCollection<int> ParticipantsID = new ObservableCollection<int>();
 

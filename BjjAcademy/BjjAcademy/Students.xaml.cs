@@ -69,7 +69,11 @@ namespace BjjAcademy
                 }
                 PersonsList = new ObservableCollection<Person>(Persons);
                 StudentList.ItemsSource = PersonsList;
+
+                MessagingCenter.Unsubscribe<AddUpdatePersonPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.PersonUpdated);
                 MessagingCenter.Subscribe<AddUpdatePersonPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.PersonUpdated, PersonUpdated);
+
+                MessagingCenter.Unsubscribe<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated);
                 MessagingCenter.Subscribe<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated, SendPersonsListToSingleEventPage);
             }
             UpdateListview();
