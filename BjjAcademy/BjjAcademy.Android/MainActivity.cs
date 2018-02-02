@@ -18,9 +18,9 @@ namespace BjjAcademy.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
-            MethodInfo dynMethod = typeof(MessagingCenter).GetMethod("ClearSubscribers", BindingFlags.NonPublic | BindingFlags.Static);
+            /*MethodInfo dynMethod = typeof(MessagingCenter).GetMethod("ClearSubscribers", BindingFlags.NonPublic | BindingFlags.Static);
             dynMethod.Invoke(null, null);
-
+            */
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -35,7 +35,7 @@ namespace BjjAcademy.Droid
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            //Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+            Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
