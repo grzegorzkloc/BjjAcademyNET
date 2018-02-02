@@ -36,6 +36,7 @@ namespace BjjAcademy.Droid
 
 		public void OnActivityDestroyed(Activity activity)
 		{
+
 		}
 
 		public void OnActivityPaused(Activity activity)

@@ -8,6 +8,8 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 using ImageCircle.Forms.Plugin.Droid;
+using System.Reflection;
+using Xamarin.Forms;
 
 namespace BjjAcademy.Droid
 {
@@ -16,6 +18,9 @@ namespace BjjAcademy.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+            MethodInfo dynMethod = typeof(MessagingCenter).GetMethod("ClearSubscribers", BindingFlags.NonPublic | BindingFlags.Static);
+            dynMethod.Invoke(null, null);
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -25,6 +30,12 @@ namespace BjjAcademy.Droid
             ImageCircleRenderer.Init();
 
             LoadApplication(new App());
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            //Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
