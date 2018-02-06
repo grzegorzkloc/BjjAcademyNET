@@ -45,8 +45,6 @@ namespace BjjAcademy
 
         protected override async void OnAppearing()
         {
-            //TODO Fires twice. Find solution.
-
             /* Initial operations consist of creating tables and filling the 
              * belt table on app's first run */
             if (startup)

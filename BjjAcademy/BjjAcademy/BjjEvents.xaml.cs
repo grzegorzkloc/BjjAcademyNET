@@ -56,15 +56,19 @@ namespace BjjAcademy
             Navigation.PushModalAsync(new AddUpdateBjjEvent());
         }
 
-        private async void MiDelete_Clicked(object sender, EventArgs e)
+        private async Task MiDelete_Clicked(object sender, EventArgs e)
         {
             var index = EventsList.IndexOf((sender as MenuItem).CommandParameter as BjjEvent);
 
             BjjEvent EventToDelete = EventsList[index];
 
-            await _connection.DeleteAsync(EventToDelete);
+            if (await DisplayAlert("Uwaga", "Czy chcesz skasować wydarzenie: " + EventToDelete.EventName + "?", "Tak", "Nie"))
+            {
 
-            EventsList.RemoveAt(index);
+                await _connection.DeleteAsync(EventToDelete);
+
+                EventsList.RemoveAt(index);
+            }
         }
 
         private void MiEdit_Clicked(object sender, EventArgs e)
@@ -72,6 +76,18 @@ namespace BjjAcademy
             var EventToEditIndex = EventsList.IndexOf((sender as MenuItem).CommandParameter as BjjEvent);
             var EventToEdit = EventsList.ElementAt<BjjEvent>(EventToEditIndex);
             Navigation.PushModalAsync(new AddUpdateBjjEvent(ref EventToEdit));
+        }
+
+        private void BjjEventList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+
+            if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.AttendanceList)
+                Navigation.PushAsync(new SingleEventPage(e.SelectedItem as Models.BjjEvent));
+            else if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.Promotion)
+                Navigation.PushAsync(new PromotionPage(e.SelectedItem as Models.BjjEvent));
+            BjjEventList.SelectedItem = null;
         }
 
         #endregion
@@ -97,20 +113,8 @@ namespace BjjAcademy
             await _connection.InsertAsync(args as BjjEvent);
         }
 
-
-
         #endregion
 
-        private void BjjEventList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (e.SelectedItem == null)
-                return;
 
-            if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.AttendanceList)
-                Navigation.PushAsync(new SingleEventPage(e.SelectedItem as Models.BjjEvent));
-            else if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.Promotion)
-                Navigation.PushAsync(new PromotionPage(e.SelectedItem as Models.BjjEvent));
-            BjjEventList.SelectedItem = null;
-        }
     }
 }

@@ -24,6 +24,9 @@ namespace BjjAcademy.EventRelatedPages
         BjjEvent EventToBeEdited;
 
         #endregion
+
+        #region Constructors
+
         public AddUpdateBjjEvent()
         {
             IsAdd = true;
@@ -38,6 +41,10 @@ namespace BjjAcademy.EventRelatedPages
             EventToBeEdited = EventToEdit;
             SetFields(EventToBeEdited);
         }
+
+        #endregion
+
+        #region Events
 
         private void SetFields(BjjEvent eventToBeEdited)
         {
@@ -70,6 +77,7 @@ namespace BjjAcademy.EventRelatedPages
                 await Navigation.PopModalAsync();
 
                 MessagingCenter.Send<AddUpdateBjjEvent, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.AddedBjjEvent, NewBjjEvent);
+                await DisplayAlert("Dodano", "Wydarzenie: " + NewBjjEvent.EventName + "dodane.", "OK");
             }
             else
             {
@@ -79,6 +87,7 @@ namespace BjjAcademy.EventRelatedPages
                 _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
                 await _connection.UpdateAsync(EventToBeEdited);
                 await Navigation.PopModalAsync();
+                await DisplayAlert("Zaktualizowano", "Wydarzenie: " + EventToBeEdited.EventName + "Zaktualizowane.", "OK");
             }
         }
 
@@ -97,12 +106,6 @@ namespace BjjAcademy.EventRelatedPages
             }
         }
 
-        private void CheckFlags()
-        {
-            if (IsEventNameOK && BjjEventType.SelectedIndex != -1) ActivateButtons(true);
-            else ActivateButtons(false);
-        }
-
         private void ActivateButtons(bool v)
         {
             if (v)
@@ -119,9 +122,17 @@ namespace BjjAcademy.EventRelatedPages
         {
             CheckFlags();
         }
+
+        #endregion
+
+        #region Methods
+
+        private void CheckFlags()
+        {
+            if (IsEventNameOK && BjjEventType.SelectedIndex != -1) ActivateButtons(true);
+            else ActivateButtons(false);
+        }
+
+        #endregion
     }
 }
-
-//TODO Add Display Alerts on Add and Edit
-
-//TODO Clean up this mess (this file)

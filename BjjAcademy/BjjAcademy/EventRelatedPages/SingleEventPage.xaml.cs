@@ -90,7 +90,6 @@ namespace BjjAcademy.EventRelatedPages
             await _connection.UpdateAsync(_bjjEvent);
 
             base.OnDisappearing();
-            //TODO Serialize object and save to DB
         }
 
         private void MiAddPeople_Activated(object sender, SelectedItemChangedEventArgs e)
@@ -103,10 +102,13 @@ namespace BjjAcademy.EventRelatedPages
             ParticipantsList.SelectedItem = null;
         }
 
-        private void MiDelete_Clicked(object sender, EventArgs e)
+        private async Task MiDelete_Clicked(object sender, EventArgs e)
         {
-            Participants.Remove((sender as MenuItem).CommandParameter as Person);
-            NoOfParticipants.Text = Participants.Count.ToString();
+            if (await DisplayAlert("Uwaga", "Czy na pewno chcesz usunąć osobę?", "Tak", "Nie"))
+            {
+                Participants.Remove((sender as MenuItem).CommandParameter as Person);
+                NoOfParticipants.Text = Participants.Count.ToString();
+            }
         }
 
         private void ParticipantsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
