@@ -62,7 +62,7 @@ namespace BjjAcademy
 
             BjjEvent EventToDelete = EventsList[index];
 
-            if (await DisplayAlert("Uwaga", "Czy chcesz skasować wydarzenie: " + EventToDelete.EventName + "?", "Tak", "Nie"))
+            if (await DisplayAlert("Uwaga", "Czy chcesz skasować wydarzenie o nazwie" + EventToDelete.EventName + "?", "Tak", "Nie"))
             {
 
                 await _connection.DeleteAsync(EventToDelete);

@@ -74,10 +74,11 @@ namespace BjjAcademy.EventRelatedPages
                     EventType = TempEventType
                 };
 
+                await DisplayAlert("Dodano", "Wydarzenie o nazwie " + NewBjjEvent.EventName + " zostało dodane.", "OK");
+
                 await Navigation.PopModalAsync();
 
                 MessagingCenter.Send<AddUpdateBjjEvent, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.AddedBjjEvent, NewBjjEvent);
-                await DisplayAlert("Dodano", "Wydarzenie: " + NewBjjEvent.EventName + "dodane.", "OK");
             }
             else
             {
@@ -86,8 +87,8 @@ namespace BjjAcademy.EventRelatedPages
                 else if (BjjEventType.SelectedIndex == 1) EventToBeEdited.EventType = Models.BjjEventType.Promotion;
                 _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
                 await _connection.UpdateAsync(EventToBeEdited);
+                await DisplayAlert("Zaktualizowano", "Wydarzenie o nazwie " + EventToBeEdited.EventName + " zostało zaktualizowane.", "OK");
                 await Navigation.PopModalAsync();
-                await DisplayAlert("Zaktualizowano", "Wydarzenie: " + EventToBeEdited.EventName + "Zaktualizowane.", "OK");
             }
         }
 
