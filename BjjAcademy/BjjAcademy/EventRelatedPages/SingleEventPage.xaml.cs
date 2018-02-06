@@ -109,5 +109,11 @@ namespace BjjAcademy.EventRelatedPages
             NoOfParticipants.Text = Participants.Count.ToString();
         }
 
+        private void ParticipantsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
+            ParticipantsList.SelectedItem = null;
+        }
     }
 }

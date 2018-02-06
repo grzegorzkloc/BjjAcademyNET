@@ -39,7 +39,8 @@
                                     </StackLayout>
                                     <Label Text="{Binding Person.Pseudo}" TextColor="DarkBlue" FontSize="Micro"/>
                                 </StackLayout>
-                                <Label Text="OK" IsVisible="{Binding IsSelected}" HorizontalOptions="EndAndExpand"/>
+                                <BoxView WidthRequest="15" BackgroundColor="LightGreen" IsVisible="{Binding IsSelected}"
+                                         HorizontalOptions="EndAndExpand"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -4,10 +4,11 @@
              x:Class="BjjAcademy.AddUpdateTrainingItems"
              Padding="20">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="CenterAndExpand">
          <Label x:Name="lblPageTitle" Text="Dodaj nazwę planu treningowego" HorizontalOptions="Center" FontSize="Medium"/>
          <Entry x:Name="TrainingPlanName" Keyboard="Text" Placeholder="Nazwa" HorizontalOptions="FillAndExpand" FontSize="Medium"
-                TextChanged="TrainingPlanName_TextChanged"/>
+                TextChanged="TrainingPlanName_TextChanged" Margin="0,20,0,20"/>
          <Grid>
              <Grid.ColumnDefinitions>
                  <ColumnDefinition Width="*"/>

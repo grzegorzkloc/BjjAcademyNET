@@ -15,7 +15,8 @@
                 <Label x:Name="NoOfParticipants" Text=" "/>
             </StackLayout>
             <ListView x:Name="ParticipantsList" 
-                      HasUnevenRows="True">
+                      HasUnevenRows="True"
+                      ItemSelected="ParticipantsList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

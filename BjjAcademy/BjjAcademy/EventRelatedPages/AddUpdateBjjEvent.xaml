@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BjjAcademy.EventRelatedPages.AddUpdateBjjEvent">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="CenterAndExpand">
             <Label Text="Dodaj nazwę wydarzenia"
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" 
+                   FontSize="Medium"/>
             <Entry x:Name="BjjEventName" HorizontalOptions="FillAndExpand" TextChanged="BjjEventName_TextChanged"
-                   Keyboard="Text"/>
+                   Keyboard="Text" Margin="0,20,0,20"/>
             <Picker x:Name="BjjEventType" Title="Typ wydarzenia" HorizontalOptions="FillAndExpand" 
-                    SelectedIndexChanged="BjjEventType_SelectedIndexChanged">
+                    SelectedIndexChanged="BjjEventType_SelectedIndexChanged" Margin="0,20,0,20">
                 <Picker.Items>
                     <x:String>Lista osób</x:String>
                     <x:String>Promocje</x:String>

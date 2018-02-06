@@ -52,7 +52,7 @@ namespace BjjAcademy
             if (startup)
             {
                 startup = false;
-                InitialOperations();
+                await InitialOperations();
 
                 var Persons = await _connection.Table<Person>().ToListAsync();
                 foreach (Person person in Persons)
@@ -144,7 +144,7 @@ namespace BjjAcademy
 
         #region Methods
 
-        public async void InitialOperations()
+        public async Task InitialOperations()
         {
             await _connection.CreateTableAsync<Belt>();
             await _connection.CreateTableAsync<Person>();
