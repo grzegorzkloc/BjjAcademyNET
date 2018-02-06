@@ -33,8 +33,8 @@ namespace BjjAcademy.EventRelatedPages
         public AddUpdateBjjEvent(ref BjjEvent EventToEdit)
         {
             IsAdd = false;
-            BjjEventType.IsEnabled = false;
             InitializeComponent();
+            BjjEventType.IsEnabled = false;
             EventToBeEdited = EventToEdit;
             SetFields(EventToBeEdited);
         }

@@ -29,6 +29,8 @@ namespace BjjAcademy.EventRelatedPages
         public SingleEventPage(Models.BjjEvent Event)
         {
             Participants = new ObservableCollection<Person>();
+            BindingContext = this;
+            Title = Event.EventName;
 
             MessagingCenter.Unsubscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage);
             MessagingCenter.Subscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage, PopulateReceivedList);
@@ -67,6 +69,7 @@ namespace BjjAcademy.EventRelatedPages
         {
             base.OnAppearing();
             ParticipantsList.ItemsSource = Participants;
+            NoOfParticipants.Text = Participants.Count.ToString();
         }
 
         protected override async void OnDisappearing()
@@ -103,6 +106,8 @@ namespace BjjAcademy.EventRelatedPages
         private void MiDelete_Clicked(object sender, EventArgs e)
         {
             Participants.Remove((sender as MenuItem).CommandParameter as Person);
+            NoOfParticipants.Text = Participants.Count.ToString();
         }
+
     }
 }
