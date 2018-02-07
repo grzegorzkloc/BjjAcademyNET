@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BjjAcademy.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -42,6 +43,15 @@ namespace BjjAcademy.EventRelatedPages
             AlreadySelectedPeople = Participants;
             PeopleToSelectFrom = new ObservableCollection<Models.SelectedPerson>();
         }
+
+        public MultiselectPersonsPage(ObservableCollection<Person> All, ObservableCollection<PromotedPerson> Participants)
+        {
+            InitializeComponent();
+            AllPeople = All;
+            AlreadySelectedPeople = GetPeopleFromPromotedPeople(Participants);
+            PeopleToSelectFrom = new ObservableCollection<Models.SelectedPerson>();
+        }
+
 
         #endregion
 
@@ -119,6 +129,20 @@ namespace BjjAcademy.EventRelatedPages
             }
 
             return SelectedPeople;
+        }
+
+        private ObservableCollection<Person> GetPeopleFromPromotedPeople(ObservableCollection<PromotedPerson> Promoted)
+        {
+            ObservableCollection<Person> People = new ObservableCollection<Person>();
+
+            if (Promoted.Count == 0) return new ObservableCollection<Person>();
+
+            foreach (var person in Promoted)
+            {
+                People.Add(person.Person);
+            }
+
+            return People;
         }
 
         #endregion

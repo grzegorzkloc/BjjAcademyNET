@@ -29,13 +29,13 @@
                                     WidthRequest="50" 
                                     HeightRequest="50"
                                     Aspect="AspectFill"
-                                    Source="{Binding Photo}"/>
+                                    Source="{Binding Person.Photo}"/>
                                 <StackLayout Orientation="Vertical">
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Name}" FontSize="Medium"/>
-                                        <Label Text="{Binding Surname}" FontSize="Medium"/>
+                                        <Label Text="{Binding Person.Name}" FontSize="Medium"/>
+                                        <Label Text="{Binding Person.Surname}" FontSize="Medium"/>
                                     </StackLayout>
-                                    <Label Text="{Binding Pseudo}" TextColor="DarkBlue" FontSize="Micro"/>
+                                    <Label Text="{Binding Person.Pseudo}" TextColor="DarkBlue" FontSize="Micro"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

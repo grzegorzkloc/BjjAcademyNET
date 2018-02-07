@@ -1,4 +1,5 @@
-﻿using BjjAcademy.Persistence;
+﻿using BjjAcademy.Models;
+using BjjAcademy.Persistence;
 using Newtonsoft.Json;
 using SQLite;
 using System;
@@ -16,7 +17,7 @@ namespace BjjAcademy.EventRelatedPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PromotionPage : ContentPage
     {
-        private ObservableCollection<Person> Participants;
+        private ObservableCollection<PromotedPerson> Participants;
         private ObservableCollection<Person> AllPeople;
         private Models.BjjEvent _bjjEvent;
         private SQLiteAsyncConnection _connection;
@@ -29,31 +30,36 @@ namespace BjjAcademy.EventRelatedPages
 
         public PromotionPage(Models.BjjEvent Event)
         {
-            Participants = new ObservableCollection<Person>();
+            Participants = new ObservableCollection<PromotedPerson>();
+            AllPeople = new ObservableCollection<Person>();
+            _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
             BindingContext = this;
             Title = Event.EventName;
+            _bjjEvent = Event;
 
             MessagingCenter.Unsubscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToPromotionPage);
             MessagingCenter.Subscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToPromotionPage, PopulateReceivedList);
 
             MessagingCenter.Unsubscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent);
             MessagingCenter.Subscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent, ReceiveMultiselectedPersons);
-            _bjjEvent = Event;
+
             MessagingCenter.Send<PromotionPage>(this, GlobalMethods.MessagingCenterMessage.PromotionPageCreated);
+
             InitializeComponent();
         }
 
-        private void ReceiveMultiselectedPersons(MultiselectPersonsPage sender, ObservableCollection<Person> args)
+        private async void ReceiveMultiselectedPersons(MultiselectPersonsPage sender, ObservableCollection<Person> args)
         {
             foreach (var Person in args)
             {
-                Participants.Add(Person);
+                Belt NewBelt = await GlobalMethods.DbHelper.GetChosenBelt(_connection, Person.BeltId);
+                PromotedPerson PersonToBePromoted = new PromotedPerson(Person, NewBelt);
+                Participants.Add(PersonToBePromoted);
             }
         }
 
-        private void PopulateReceivedList(Students sender, ObservableCollection<Person> args)
+        private async void PopulateReceivedList(Students sender, ObservableCollection<Person> args)
         {
-            //TODO Check if List Contains somenthing
             AllPeople = args;
             var ParticipantsIdList = new ObservableCollection<int>(Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<int>>(_bjjEvent.ParticipantsBlob));
 
@@ -61,7 +67,12 @@ namespace BjjAcademy.EventRelatedPages
             {
                 foreach (var Person in AllPeople)
                 {
-                    if (Person.Id == Id) Participants.Add(Person);
+                    if (Person.Id == Id)
+                    {
+                        Belt NewBelt = await GlobalMethods.DbHelper.GetChosenBelt(_connection, Person.BeltId);
+                        PromotedPerson PersonToBePromoted = new PromotedPerson(Person, NewBelt);
+                        Participants.Add(PersonToBePromoted);
+                    }
                 }
             }
         }
@@ -79,14 +90,15 @@ namespace BjjAcademy.EventRelatedPages
             //MessagingCenter.Unsubscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent);
 
             ObservableCollection<int> ParticipantsID = new ObservableCollection<int>();
-
+            ObservableCollection<int> NewBeltsID = new ObservableCollection<int>();
             foreach (var person in Participants)
             {
-                ParticipantsID.Add(person.Id);
+                ParticipantsID.Add(person.Person.Id);
+                NewBeltsID.Add(person.NewBelt.Id);
             }
 
             _bjjEvent.ParticipantsBlob = JsonConvert.SerializeObject(ParticipantsID);
-            _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+            _bjjEvent.NewBeltsBlob = JsonConvert.SerializeObject(NewBeltsID);
 
             await _connection.UpdateAsync(_bjjEvent);
 
@@ -107,7 +119,7 @@ namespace BjjAcademy.EventRelatedPages
         {
             if (await DisplayAlert("Uwaga", "Czy na pewno chcesz usunąć osobę?", "Tak", "Nie"))
             {
-                Participants.Remove((sender as MenuItem).CommandParameter as Person);
+                Participants.Remove((sender as MenuItem).CommandParameter as PromotedPerson);
                 NoOfParticipants.Text = Participants.Count.ToString();
             }
         }
