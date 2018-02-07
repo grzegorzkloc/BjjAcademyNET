@@ -73,10 +73,15 @@ namespace BjjAcademy
 
                 MessagingCenter.Unsubscribe<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated);
                 MessagingCenter.Subscribe<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated, SendPersonsListToSingleEventPage);
+
+                MessagingCenter.Unsubscribe<PromotionPage>(this, GlobalMethods.MessagingCenterMessage.PromotionPageCreated);
+                MessagingCenter.Subscribe<PromotionPage>(this, GlobalMethods.MessagingCenterMessage.PromotionPageCreated, SendPersonsListToPromotionPage);
             }
             UpdateListview();
             base.OnAppearing();
         }
+
+
 
         #endregion
 
@@ -180,6 +185,12 @@ namespace BjjAcademy
         {
             MessagingCenter.Send<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage, PersonsList);
         }
+
+        private void SendPersonsListToPromotionPage(PromotionPage obj)
+        {
+            MessagingCenter.Send<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToPromotionPage, PersonsList);
+        }
+
         #endregion
     }
 }
