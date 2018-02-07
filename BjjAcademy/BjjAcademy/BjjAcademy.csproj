@@ -40,6 +40,9 @@
     <Compile Include="EventRelatedPages\AddUpdateBjjEvent.xaml.cs">
       <DependentUpon>AddUpdateBjjEvent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EventRelatedPages\ChangeBeltForPromotion.xaml.cs">
+      <DependentUpon>ChangeBeltForPromotion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EventRelatedPages\MultiselectPersonsPage.xaml.cs">
       <DependentUpon>MultiselectPersonsPage.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EventRelatedPages\MultiselectPersonsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EventRelatedPages\ChangeBeltForPromotion.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

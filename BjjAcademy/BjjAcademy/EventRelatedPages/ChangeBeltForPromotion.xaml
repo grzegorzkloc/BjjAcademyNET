@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BjjAcademy"
+             xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="BjjAcademy.EventRelatedPages.ChangeBeltForPromotion"
+             Padding="5">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <ic:CircleImage x:Name="PersonPhoto" HeightRequest="200" WidthRequest="200" Aspect="AspectFill" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" Spacing="5">
+                    <BoxView HeightRequest="2" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="Center"/>
+                    <Label x:Name="NameSurnameLbl" FontSize="Large" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label x:Name="PseudoLbl" FontSize="Large" TextColor="Navy" HorizontalOptions="Center"/>
+                    <BoxView HeightRequest="10" WidthRequest="100" BackgroundColor="Transparent" HorizontalOptions="Center"/>
+                    <Label x:Name="BeltStripesLbl" FontSize="Medium" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Picker x:Name="pckrBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" SelectedIndexChanged="pckrBelt_SelectedIndexChanged">
+                        <Picker.Items>
+                            <x:String>Biały</x:String>
+                            <x:String>Niebieski</x:String>
+                            <x:String>Purpurowy</x:String>
+                            <x:String>Brązowy</x:String>
+                            <x:String>Czarny</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Picker x:Name="pckrStripes" Title="Ilość belek" HorizontalOptions="FillAndExpand" SelectedIndexChanged="pckrStripes_SelectedIndexChanged">
+                        <Picker.Items>
+                            <x:String>0 belek</x:String>
+                            <x:String>1 belka</x:String>
+                            <x:String>2 belki</x:String>
+                            <x:String>3 belki</x:String>
+                            <x:String>4 belki</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </StackLayout>
+                <!-- Delete and Update buttons -->
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Anuluj" 
+                        x:Name="CancelBtn" 
+                        HorizontalOptions="FillAndExpand" 
+                        
+                        BackgroundColor="IndianRed"/>
+                    <Button Text="Zatwierdź" 
+                        x:Name="ApproveBtn"
+                        HorizontalOptions="FillAndExpand" 
+
+                        BackgroundColor="LightGreen"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
