@@ -30,6 +30,7 @@ namespace BjjAcademy.Models
         private string _eventName;
         private BjjEventType _eventType;
         private string _participantsBlob;
+        private string _newBeltsBlob;
 
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -56,6 +57,15 @@ namespace BjjAcademy.Models
                 OnPropertyChanged();
             }
         }
+        public string NewBeltsBlob
+        {
+            get { return _newBeltsBlob; }
+            set
+            {
+                _newBeltsBlob = value;
+                OnPropertyChanged();
+            }
+        }
 
         public BjjEventType EventType
         {
@@ -71,14 +81,20 @@ namespace BjjAcademy.Models
 
         public BjjEvent()
         {
-            ObservableCollection<int> temp = new ObservableCollection<int>();
-            ParticipantsBlob = JsonConvert.SerializeObject(temp);
+            ObservableCollection<int> tempParticipants = new ObservableCollection<int>();
+            ParticipantsBlob = JsonConvert.SerializeObject(tempParticipants);
+
+            ObservableCollection<int> tempNewBelts = new ObservableCollection<int>();
+            NewBeltsBlob = JsonConvert.SerializeObject(tempNewBelts);
         }
 
         public BjjEvent(BjjEventType eventType)
         {
-            ObservableCollection<int> temp = new ObservableCollection<int>();
-            ParticipantsBlob = JsonConvert.SerializeObject(temp);
+            ObservableCollection<int> tempParticipants = new ObservableCollection<int>();
+            ParticipantsBlob = JsonConvert.SerializeObject(tempParticipants);
+
+            ObservableCollection<int> tempNewBelts = new ObservableCollection<int>();
+            NewBeltsBlob = JsonConvert.SerializeObject(tempNewBelts);
 
             EventType = eventType;
         }
