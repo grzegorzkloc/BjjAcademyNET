@@ -16,10 +16,11 @@
                     <Label x:Name="NameSurnameLbl" FontSize="Large" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
                     <Label x:Name="PseudoLbl" FontSize="Large" TextColor="Navy" HorizontalOptions="Center"/>
                     <BoxView HeightRequest="10" WidthRequest="100" BackgroundColor="Transparent" HorizontalOptions="Center"/>
-                    <Label x:Name="BeltStripesLbl" FontSize="Medium" HorizontalOptions="Center"/>
+                    <Label Text="Obecny stopień" FontSize="Medium" HorizontalOptions="CenterAndExpand"
+                           Margin="0,10,0,10"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Picker x:Name="pckrBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" SelectedIndexChanged="pckrBelt_SelectedIndexChanged">
+                    <Picker x:Name="pckrOldBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" IsEnabled="False">
                         <Picker.Items>
                             <x:String>Biały</x:String>
                             <x:String>Niebieski</x:String>
@@ -28,7 +29,29 @@
                             <x:String>Czarny</x:String>
                         </Picker.Items>
                     </Picker>
-                    <Picker x:Name="pckrStripes" Title="Ilość belek" HorizontalOptions="FillAndExpand" SelectedIndexChanged="pckrStripes_SelectedIndexChanged">
+                    <Picker x:Name="pckrOldStripes" Title="Ilość belek" HorizontalOptions="FillAndExpand" IsEnabled="False">
+                        <Picker.Items>
+                            <x:String>0 belek</x:String>
+                            <x:String>1 belka</x:String>
+                            <x:String>2 belki</x:String>
+                            <x:String>3 belki</x:String>
+                            <x:String>4 belki</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </StackLayout>
+                <Label Text="Nowy stopień" FontSize="Medium" HorizontalOptions="CenterAndExpand"
+                       Margin="0,10,0,10"/>
+                <StackLayout Orientation="Horizontal">
+                    <Picker x:Name="pckrBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" >
+                        <Picker.Items>
+                            <x:String>Biały</x:String>
+                            <x:String>Niebieski</x:String>
+                            <x:String>Purpurowy</x:String>
+                            <x:String>Brązowy</x:String>
+                            <x:String>Czarny</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Picker x:Name="pckrStripes" Title="Ilość belek" HorizontalOptions="FillAndExpand" >
                         <Picker.Items>
                             <x:String>0 belek</x:String>
                             <x:String>1 belka</x:String>
@@ -43,14 +66,20 @@
                     <Button Text="Anuluj" 
                         x:Name="CancelBtn" 
                         HorizontalOptions="FillAndExpand" 
+                        Clicked="CancelBtn_Clicked"
                         
                         BackgroundColor="IndianRed"/>
-                    <Button Text="Zatwierdź" 
+                    <Button Text="Zapisz nowy stopień" 
                         x:Name="ApproveBtn"
                         HorizontalOptions="FillAndExpand" 
-
-                        BackgroundColor="LightGreen"/>
+                        BackgroundColor="LightGreen"
+                        Clicked="ApproveBtn_Clicked"/>
                 </StackLayout>
+                <Button x:Name="PromoteBtn"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Aqua"
+                        Text="Promuj"
+                        Clicked="PromoteBtn_Clicked"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

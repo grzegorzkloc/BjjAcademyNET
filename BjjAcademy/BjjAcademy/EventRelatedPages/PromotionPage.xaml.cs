@@ -62,6 +62,23 @@ namespace BjjAcademy.EventRelatedPages
         {
             AllPeople = args;
             var ParticipantsIdList = new ObservableCollection<int>(Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<int>>(_bjjEvent.ParticipantsBlob));
+            var BeltsIdList = new ObservableCollection<byte>(Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<byte>>(_bjjEvent.NewBeltsBlob));
+            var BeltsList = new ObservableCollection<Belt>();
+
+            var Belts = await _connection.Table<Belt>().ToListAsync();
+            foreach (var beltId in BeltsIdList)
+            {
+                foreach (var belt in Belts)
+                {
+                    if (beltId == belt.Id) BeltsList.Add(belt);
+                }
+            }
+
+
+
+
+            int i = 0;
+
 
             foreach (var Id in ParticipantsIdList)
             {
@@ -69,11 +86,11 @@ namespace BjjAcademy.EventRelatedPages
                 {
                     if (Person.Id == Id)
                     {
-                        Belt NewBelt = await GlobalMethods.DbHelper.GetChosenBelt(_connection, Person.BeltId);
-                        PromotedPerson PersonToBePromoted = new PromotedPerson(Person, NewBelt);
+                        PromotedPerson PersonToBePromoted = new PromotedPerson(Person, BeltsList[i]);
                         Participants.Add(PersonToBePromoted);
                     }
                 }
+                i++;
             }
         }
 
@@ -129,6 +146,9 @@ namespace BjjAcademy.EventRelatedPages
             if (e.SelectedItem == null)
                 return;
             ParticipantsList.SelectedItem = null;
+
+            PromotedPerson toSend = e.SelectedItem as PromotedPerson;
+            Navigation.PushModalAsync(new ChangeBeltForPromotion(ref toSend, ref Participants));
         }
     }
 }

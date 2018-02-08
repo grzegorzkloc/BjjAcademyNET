@@ -93,7 +93,7 @@ namespace BjjAcademy.Models
             ObservableCollection<int> tempParticipants = new ObservableCollection<int>();
             ParticipantsBlob = JsonConvert.SerializeObject(tempParticipants);
 
-            ObservableCollection<int> tempNewBelts = new ObservableCollection<int>();
+            ObservableCollection<byte> tempNewBelts = new ObservableCollection<byte>();
             NewBeltsBlob = JsonConvert.SerializeObject(tempNewBelts);
 
             EventType = eventType;

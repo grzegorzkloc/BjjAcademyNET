@@ -52,5 +52,10 @@ namespace BjjAcademy.Models
             }
         }
 
+        public void CheckIfPromotionIsOK()
+        {
+            if (NewBelt.Id > Person.BeltId) IsPromotionOK = true;
+            else IsPromotionOK = false;
+        }
     }
 }
