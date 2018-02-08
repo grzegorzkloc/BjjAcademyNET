@@ -17,5 +17,7 @@ namespace BjjAcademy.GlobalMethods
         public static readonly string SentToSingleEventPage = "SentToSingleEventPage";
         public static readonly string SentToPromotionPage = "SentToPromotionPage";
         public static readonly string MultiselectPersonsSent = "MultiselectPersonsSent";
+        public static readonly string PromotionListEmpty = "PromotionListEmpty";
+        public static readonly string DeletePromotionEvent = "DeletePromotionEvent";
     }
 }

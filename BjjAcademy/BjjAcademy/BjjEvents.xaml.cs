@@ -31,10 +31,17 @@ namespace BjjAcademy
         {
             IsStartup = true;
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+            MessagingCenter.Unsubscribe<AddUpdateBjjEvent, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.AddedBjjEvent);
             MessagingCenter.Subscribe<AddUpdateBjjEvent, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.AddedBjjEvent, BjjEventAdded);
+
+            MessagingCenter.Unsubscribe<PromotionPage, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.DeletePromotionEvent);
+            MessagingCenter.Subscribe<PromotionPage, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.DeletePromotionEvent, DeleteCompletedPromotion);
+
             BindingContext = this;
             InitializeComponent();
         }
+
+
 
         #endregion
 
@@ -111,6 +118,12 @@ namespace BjjAcademy
         {
             EventsList.Add(args as BjjEvent);
             await _connection.InsertAsync(args as BjjEvent);
+        }
+
+        private async void DeleteCompletedPromotion(PromotionPage arg1, BjjEvent arg2)
+        {
+            await _connection.DeleteAsync(arg2);
+            EventsList.Remove(arg2);
         }
 
         #endregion

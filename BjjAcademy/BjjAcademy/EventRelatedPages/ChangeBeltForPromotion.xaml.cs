@@ -72,11 +72,9 @@ namespace BjjAcademy.EventRelatedPages
 
         private async Task PromoteBtn_Clicked(object sender, EventArgs e)
         {
-            //TODO Check if list contains people and if not, delete promotion object
-
             if ((byte)await GetBeltIdFromPickers() <= _promotedPerson.Person.BeltId)
             {
-                await DisplayAlert("Błąd", "Nie możesz promować osoby na niższy stopień", "OK");
+                await DisplayAlert("Błąd", "Możesz promować tylko na wyższy stopień", "OK");
             }
             else
             {
@@ -84,6 +82,7 @@ namespace BjjAcademy.EventRelatedPages
                 await _connection.UpdateAsync(_promotedPerson.Person);
 
                 _list.Remove(_promotedPerson);
+                if (_list.Count == 0) MessagingCenter.Send<ChangeBeltForPromotion>(this, GlobalMethods.MessagingCenterMessage.PromotionListEmpty);
                 await Navigation.PopModalAsync();
             }
         }

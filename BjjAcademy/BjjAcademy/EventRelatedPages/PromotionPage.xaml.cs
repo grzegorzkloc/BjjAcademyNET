@@ -17,6 +17,8 @@ namespace BjjAcademy.EventRelatedPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PromotionPage : ContentPage
     {
+        //TODO Add sorting by new rank.
+
         private ObservableCollection<PromotedPerson> Participants;
         private ObservableCollection<Person> AllPeople;
         private Models.BjjEvent _bjjEvent;
@@ -43,9 +45,19 @@ namespace BjjAcademy.EventRelatedPages
             MessagingCenter.Unsubscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent);
             MessagingCenter.Subscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent, ReceiveMultiselectedPersons);
 
+            MessagingCenter.Unsubscribe<ChangeBeltForPromotion>(this, GlobalMethods.MessagingCenterMessage.PromotionListEmpty);
+            MessagingCenter.Subscribe<ChangeBeltForPromotion>(this, GlobalMethods.MessagingCenterMessage.PromotionListEmpty, CompletePromotion);
+
             MessagingCenter.Send<PromotionPage>(this, GlobalMethods.MessagingCenterMessage.PromotionPageCreated);
 
             InitializeComponent();
+        }
+
+        private async void CompletePromotion(ChangeBeltForPromotion obj)
+        {
+            await DisplayAlert("Promocja zakończona", "Wszystkie osoby zostały promowane. Wydarzenie zostanie usunięte.", "OK");
+            await Navigation.PopAsync();
+            MessagingCenter.Send<PromotionPage, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.DeletePromotionEvent, _bjjEvent);
         }
 
         private async void ReceiveMultiselectedPersons(MultiselectPersonsPage sender, ObservableCollection<Person> args)
@@ -74,12 +86,7 @@ namespace BjjAcademy.EventRelatedPages
                 }
             }
 
-
-
-
             int i = 0;
-
-
             foreach (var Id in ParticipantsIdList)
             {
                 foreach (var Person in AllPeople)
@@ -104,6 +111,8 @@ namespace BjjAcademy.EventRelatedPages
         protected override async void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToPromotionPage);
+            //MessagingCenter.Unsubscribe<ChangeBeltForPromotion>(this, GlobalMethods.MessagingCenterMessage.PromotionListEmpty);
+
             //MessagingCenter.Unsubscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent);
 
             ObservableCollection<int> ParticipantsID = new ObservableCollection<int>();
