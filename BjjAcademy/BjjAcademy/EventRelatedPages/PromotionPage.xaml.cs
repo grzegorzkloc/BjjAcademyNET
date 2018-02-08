@@ -66,6 +66,7 @@ namespace BjjAcademy.EventRelatedPages
             {
                 Belt NewBelt = await GlobalMethods.DbHelper.GetChosenBelt(_connection, Person.BeltId);
                 PromotedPerson PersonToBePromoted = new PromotedPerson(Person, NewBelt);
+                PersonToBePromoted.IsPromotionOK = false;
                 Participants.Add(PersonToBePromoted);
             }
         }
@@ -94,6 +95,9 @@ namespace BjjAcademy.EventRelatedPages
                     if (Person.Id == Id)
                     {
                         PromotedPerson PersonToBePromoted = new PromotedPerson(Person, BeltsList[i]);
+                        if (PersonToBePromoted.NewBelt.Id > PersonToBePromoted.Person.BeltId)
+                            PersonToBePromoted.IsPromotionOK = true;
+                        else PersonToBePromoted.IsPromotionOK = false;
                         Participants.Add(PersonToBePromoted);
                     }
                 }

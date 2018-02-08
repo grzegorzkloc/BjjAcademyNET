@@ -37,6 +37,8 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Converters\IsPromotionOkConverter.cs" />
+    <Compile Include="Converters\IsSelectedPersonConverter.cs" />
     <Compile Include="EventRelatedPages\AddUpdateBjjEvent.xaml.cs">
       <DependentUpon>AddUpdateBjjEvent.xaml</DependentUpon>
     </Compile>
