@@ -61,8 +61,19 @@ namespace BjjAcademy.TrainingRelatedPages
 
         protected override bool OnBackButtonPressed()
         {
-            SerializeTrainingPlan();
-            return base.OnBackButtonPressed();
+            if (SlListview.IsVisible)
+            {
+                SerializeTrainingPlan();
+                return base.OnBackButtonPressed();
+            }
+            else
+            {
+                SlListview.IsVisible = true;
+
+                SlAddExercise.IsVisible = false;
+                EdtrExercise.Text = "";
+                return true;
+            }
         }
 
         protected override void OnDisappearing()
@@ -80,11 +91,13 @@ namespace BjjAcademy.TrainingRelatedPages
             IsExerciseAdd = true;
             AddBtn.Text = "Dodaj";
             SlAddExercise.IsVisible = true;
+            SlListview.IsVisible = false;
         }
 
         private void CancelBtn_Clicked(object sender, EventArgs e)
         {
             SlAddExercise.IsVisible = false;
+            SlListview.IsVisible = true;
             EdtrExercise.Text = "";
         }
 
@@ -160,6 +173,7 @@ namespace BjjAcademy.TrainingRelatedPages
                 await DisplayAlert("Dodano", "Dodano nowe ćwiczenie", "OK");
                 EdtrExercise.Text = "";
                 SlAddExercise.IsVisible = false;
+                SlListview.IsVisible = true;
             }
             else
             {
@@ -167,6 +181,7 @@ namespace BjjAcademy.TrainingRelatedPages
                 await DisplayAlert("Zaktualizowano", "Ćwiczenie zaktualizowane", "OK");
                 EdtrExercise.Text = "";
                 SlAddExercise.IsVisible = false;
+                SlListview.IsVisible = true;
             }
         }
 
