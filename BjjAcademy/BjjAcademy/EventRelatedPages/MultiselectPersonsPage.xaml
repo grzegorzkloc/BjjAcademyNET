@@ -2,8 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BjjAcademy"
+             xmlns:converter="clr-namespace:BjjAcademy.Converters"
              xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="BjjAcademy.EventRelatedPages.MultiselectPersonsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:IsSelectedPersonConverter x:Key="IsSelectedPersonConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <Grid>
@@ -26,7 +32,7 @@
                                 <MenuItem x:Name="MiDelete" Text= "Usuń" IsDestructive="True"
                                           CommandParameter="{Binding .}"/>
                             </ViewCell.ContextActions>
-                            <StackLayout Orientation="Horizontal" Padding="5">
+                            <StackLayout Orientation="Horizontal" Padding="5" BackgroundColor="{Binding IsSelected,Converter={StaticResource IsSelectedPersonConverter}}">
                                 <ic:CircleImage 
                                     WidthRequest="50" 
                                     HeightRequest="50"
@@ -39,7 +45,7 @@
                                     </StackLayout>
                                     <Label Text="{Binding Person.Pseudo}" TextColor="DarkBlue" FontSize="Micro"/>
                                 </StackLayout>
-                                <BoxView WidthRequest="15" BackgroundColor="LightGreen" IsVisible="{Binding IsSelected}"
+                                <BoxView WidthRequest="15" BackgroundColor="LightGreen" IsVisible="False"
                                          HorizontalOptions="EndAndExpand"/>
                             </StackLayout>
                         </ViewCell>

@@ -8,13 +8,14 @@ using Xamarin.Forms;
 
 namespace BjjAcademy.Converters
 {
-    public class IsSelectedPersonConverter : IValueConverter
+    public class IsPromotionOkToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var IsSelected = (bool)value;
-            if (IsSelected) return Color.FromHex("#cccccc");
-            else return Color.Transparent;
+            var IsPromotionOk = (bool)value;
+            if (!IsPromotionOk) return "Podaj wyższy stopień";
+            else return "";
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

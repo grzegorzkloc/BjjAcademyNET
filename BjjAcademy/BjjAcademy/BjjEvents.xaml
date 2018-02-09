@@ -1,14 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:BjjAcademy.Converters"
              x:Class="BjjAcademy.BjjEvents"
              Padding="5">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:TypeOfEventToColorConverter x:Key="TypeOfEventToColorConverter"/>
+            <converter:TypeOfEventToStringConverter x:Key="TypeOfEventToStringConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="AddBjjEvent" Text="Dodaj wydarzenie" Order="Primary" Activated="AddBjjEvent_Activated"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <ListView x:Name="BjjEventList" ItemSelected="BjjEventList_ItemSelected">
+            <ListView x:Name="BjjEventList" 
+                      ItemSelected="BjjEventList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -18,7 +28,17 @@
                                 <MenuItem x:Name="MiDelete" Text="Usuń" IsDestructive="True"
                                           Clicked="MiDelete_Clicked" CommandParameter="{Binding .}"/>
                             </ViewCell.ContextActions>
-                            <Label Text="{Binding EventName}" FontSize="Large"/>
+                            <StackLayout Orientation="Horizontal" 
+                                         HorizontalOptions="FillAndExpand"
+                                         BackgroundColor="{Binding EventType, Converter={StaticResource TypeOfEventToColorConverter}}"
+                                         Padding="10">
+                                <Label Text="{Binding EventName}" FontSize="Large" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding EventType, Converter={StaticResource TypeOfEventToStringConverter}}" 
+                                       HorizontalOptions="End" 
+                                       VerticalOptions="End"
+                                       FontSize="Micro"
+                                       TextColor="DarkBlue"/>
+                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

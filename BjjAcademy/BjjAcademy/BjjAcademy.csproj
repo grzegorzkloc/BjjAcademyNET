@@ -38,7 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Converters\IsPromotionOkConverter.cs" />
+    <Compile Include="Converters\IsPromotionOkToStringConverter.cs" />
     <Compile Include="Converters\IsSelectedPersonConverter.cs" />
+    <Compile Include="Converters\TypeOfEventToColorConverter.cs" />
+    <Compile Include="Converters\TypeOfEventToStringConverter.cs" />
     <Compile Include="EventRelatedPages\AddUpdateBjjEvent.xaml.cs">
       <DependentUpon>AddUpdateBjjEvent.xaml</DependentUpon>
     </Compile>

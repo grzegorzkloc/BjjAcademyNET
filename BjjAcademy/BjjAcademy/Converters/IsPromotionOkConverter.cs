@@ -14,7 +14,8 @@ namespace BjjAcademy.Converters
         {
             var IsPromotionOK = (bool)value;
             if (IsPromotionOK) return Color.Transparent;
-            else return Color.LightGray;
+            //else return Color.FromHex("#ff9b9b");
+            else return Color.Accent;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

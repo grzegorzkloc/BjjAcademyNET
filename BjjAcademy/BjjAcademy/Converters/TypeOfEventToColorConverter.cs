@@ -8,12 +8,12 @@ using Xamarin.Forms;
 
 namespace BjjAcademy.Converters
 {
-    public class IsSelectedPersonConverter : IValueConverter
+    public class TypeOfEventToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var IsSelected = (bool)value;
-            if (IsSelected) return Color.FromHex("#cccccc");
+            var TypeOfEvent = (Models.BjjEventType)value;
+            if (TypeOfEvent == Models.BjjEventType.Promotion) return Color.FromHex("#fafaaa");
             else return Color.Transparent;
         }
 

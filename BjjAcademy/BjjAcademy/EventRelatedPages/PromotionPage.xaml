@@ -10,23 +10,27 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:IsPromotionOkConverter x:Key ="IsPromotionOkConverter"/>
+            <converter:IsPromotionOkToStringConverter x:Key="IsPromotionOkToStringConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="MiAddPeople" Text="Dodaj osoby" Order="Primary" Activated="MiAddPeople_Activated"/>
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
+        
         <StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
                     <Label Text="Promocje" TextColor="DarkBlue"/>
-            </StackLayout>
+                </StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
-                <Label Text="Liczba uczestników: " TextColor="DarkBlue"/>
-                <Label x:Name="NoOfParticipants" Text=" " TextColor="DarkBlue"/>
+                    <Label Text="Liczba uczestników: " TextColor="DarkBlue"/>
+                    <Label x:Name="NoOfParticipants" Text=" " TextColor="DarkBlue"/>
+                </StackLayout>
             </StackLayout>
-            </StackLayout>
+            
             <ListView x:Name="ParticipantsList" 
                       HasUnevenRows="True"
                       ItemSelected="ParticipantsList_ItemSelected">
@@ -37,18 +41,33 @@
                                 <MenuItem x:Name="MiDelete" Text= "Usuń" IsDestructive="True" Clicked="MiDelete_Clicked"
                                           CommandParameter="{Binding .}"/>
                             </ViewCell.ContextActions>
-                            <StackLayout Orientation="Horizontal" Padding="5" BackgroundColor="{Binding IsPromotionOK,Converter={StaticResource IsPromotionOkConverter} }">
+                            
+                            <StackLayout Orientation="Horizontal"
+                                         HorizontalOptions="FillAndExpand"
+                                         Padding="5" 
+                                         BackgroundColor="{Binding IsPromotionOK,Converter={StaticResource IsPromotionOkConverter} }">
                                 <ic:CircleImage 
                                     WidthRequest="50" 
                                     HeightRequest="50"
                                     Aspect="AspectFill"
                                     Source="{Binding Person.Photo}"/>
-                                <StackLayout Orientation="Vertical">
-                                    <StackLayout Orientation="Horizontal">
+                                
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                         <Label Text="{Binding Person.Name}" FontSize="Medium"/>
                                         <Label Text="{Binding Person.Surname}" FontSize="Medium"/>
                                     </StackLayout>
-                                    <Label Text="{Binding Person.Pseudo}" TextColor="DarkBlue" FontSize="Micro"/>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding Person.Pseudo}" 
+                                           TextColor="DarkBlue"
+                                           FontSize="Micro"
+                                           HorizontalOptions="StartAndExpand"/>
+                                        <Label Text="{Binding IsPromotionOK, Converter={StaticResource IsPromotionOkToStringConverter}}"
+                                               TextColor="DarkBlue"
+                                               FontSize="Micro"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="End"/>
+                                    </StackLayout>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

@@ -8,7 +8,8 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            <ListView x:Name="BjjTrainingList" ItemSelected="BjjTrainingList_ItemSelected">
+            <ListView x:Name="BjjTrainingList" 
+                      ItemSelected="BjjTrainingList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
