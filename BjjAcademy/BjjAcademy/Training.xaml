@@ -9,7 +9,8 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <ListView x:Name="BjjTrainingList" 
-                      ItemSelected="BjjTrainingList_ItemSelected">
+                      ItemSelected="BjjTrainingList_ItemSelected"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -19,7 +20,11 @@
                                 <MenuItem x:Name="miDelete" Text="Usuń" Clicked="miDelete_Clicked" IsDestructive="True"
                                           CommandParameter="{Binding .}"/>
                             </ViewCell.ContextActions>
-                            <Label Text="{Binding Name}" FontSize="Large"/>
+                            <StackLayout Orientation="Horizontal"
+                                         HorizontalOptions="FillAndExpand"
+                                         Padding="5">
+                                <Label Text="{Binding Name}" FontSize="Large"/>
+                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

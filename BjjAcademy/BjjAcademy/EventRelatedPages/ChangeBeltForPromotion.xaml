@@ -79,7 +79,8 @@
                         HorizontalOptions="FillAndExpand"
                         BackgroundColor="Aqua"
                         Text="Promuj"
-                        Clicked="PromoteBtn_Clicked"/>
+                        Clicked="PromoteBtn_Clicked"
+                        Margin="0,20,0,0"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

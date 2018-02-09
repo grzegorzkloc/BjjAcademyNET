@@ -13,7 +13,7 @@ namespace BjjAcademy.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var TypeOfEvent = (Models.BjjEventType)value;
-            if (TypeOfEvent == Models.BjjEventType.Promotion) return Color.FromHex("#fafaaa");
+            if (TypeOfEvent == Models.BjjEventType.Promotion) return Color.FromHex("#e0e0e0");
             else return Color.Transparent;
         }
 

@@ -13,7 +13,7 @@ namespace BjjAcademy.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var IsSelected = (bool)value;
-            if (IsSelected) return Color.FromHex("#cccccc");
+            if (IsSelected) return Color.FromHex("#e0e0e0");
             else return Color.Transparent;
         }
 

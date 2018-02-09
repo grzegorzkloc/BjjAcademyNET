@@ -18,7 +18,8 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <ListView x:Name="BjjEventList" 
-                      ItemSelected="BjjEventList_ItemSelected">
+                      ItemSelected="BjjEventList_ItemSelected"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -31,11 +32,11 @@
                             <StackLayout Orientation="Horizontal" 
                                          HorizontalOptions="FillAndExpand"
                                          BackgroundColor="{Binding EventType, Converter={StaticResource TypeOfEventToColorConverter}}"
-                                         Padding="10">
+                                         Padding="5">
                                 <Label Text="{Binding EventName}" FontSize="Large" HorizontalOptions="StartAndExpand"/>
                                 <Label Text="{Binding EventType, Converter={StaticResource TypeOfEventToStringConverter}}" 
                                        HorizontalOptions="End" 
-                                       VerticalOptions="End"
+                                       VerticalOptions="EndAndExpand"
                                        FontSize="Micro"
                                        TextColor="DarkBlue"/>
                             </StackLayout>
