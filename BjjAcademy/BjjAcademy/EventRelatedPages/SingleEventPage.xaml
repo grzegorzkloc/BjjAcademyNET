@@ -19,6 +19,8 @@
                 <Label x:Name="NoOfParticipants" Text=" " TextColor="DarkBlue"/>
             </StackLayout>
             </StackLayout>
+            <Label x:Name="LblEventName" HorizontalOptions="CenterAndExpand" FontSize="Large" 
+                   HorizontalTextAlignment="Center" FontAttributes="Bold" Margin="0,0,0,10"/>
             <ListView x:Name="ParticipantsList" 
                       HasUnevenRows="True"
                       ItemSelected="ParticipantsList_ItemSelected">

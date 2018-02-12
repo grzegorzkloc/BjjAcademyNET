@@ -16,6 +16,7 @@
     
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="MiAddPeople" Text="Dodaj osoby" Order="Primary" Activated="MiAddPeople_Activated"/>
+        <ToolbarItem x:Name="MiSort" Text= "Sortuj" Clicked="MiSort_Clicked" CommandParameter="{Binding .}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
@@ -30,7 +31,9 @@
                     <Label x:Name="NoOfParticipants" Text=" " TextColor="DarkBlue"/>
                 </StackLayout>
             </StackLayout>
-            
+            <Label x:Name="LblEventName" HorizontalOptions="CenterAndExpand" FontSize="Large" 
+                   HorizontalTextAlignment="Center" FontAttributes="Bold"
+                   Margin="0,0,0,10"/>
             <ListView x:Name="ParticipantsList" 
                       HasUnevenRows="True"
                       ItemSelected="ParticipantsList_ItemSelected">

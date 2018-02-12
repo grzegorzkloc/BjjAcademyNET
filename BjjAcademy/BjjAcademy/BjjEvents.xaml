@@ -29,16 +29,17 @@
                                 <MenuItem x:Name="MiDelete" Text="Usuń" IsDestructive="True"
                                           Clicked="MiDelete_Clicked" CommandParameter="{Binding .}"/>
                             </ViewCell.ContextActions>
-                            <StackLayout Orientation="Horizontal" 
+                                <StackLayout Orientation="Vertical" 
                                          HorizontalOptions="FillAndExpand"
                                          BackgroundColor="{Binding EventType, Converter={StaticResource TypeOfEventToColorConverter}}"
                                          Padding="5">
                                 <Label Text="{Binding EventName}" FontSize="Large" HorizontalOptions="StartAndExpand"/>
                                 <Label Text="{Binding EventType, Converter={StaticResource TypeOfEventToStringConverter}}" 
                                        HorizontalOptions="End" 
-                                       VerticalOptions="EndAndExpand"
+                                       VerticalOptions="End"
                                        FontSize="Micro"
-                                       TextColor="DarkBlue"/>
+                                       TextColor="DarkBlue"
+                                       HorizontalTextAlignment="End"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

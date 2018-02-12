@@ -30,7 +30,6 @@ namespace BjjAcademy.EventRelatedPages
         {
             Participants = new ObservableCollection<Person>();
             BindingContext = this;
-            Title = Event.EventName;
 
             MessagingCenter.Unsubscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage);
             MessagingCenter.Subscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToSingleEventPage, PopulateReceivedList);
@@ -40,6 +39,8 @@ namespace BjjAcademy.EventRelatedPages
             _bjjEvent = Event;
             MessagingCenter.Send<SingleEventPage>(this, GlobalMethods.MessagingCenterMessage.SingleEventPageCreated);
             InitializeComponent();
+
+            LblEventName.Text = Event.EventName;
         }
 
         private void ReceiveMultiselectedPersons(MultiselectPersonsPage sender, ObservableCollection<Person> args)

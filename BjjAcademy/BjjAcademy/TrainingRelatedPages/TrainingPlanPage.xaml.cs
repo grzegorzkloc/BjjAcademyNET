@@ -33,8 +33,6 @@ namespace BjjAcademy.TrainingRelatedPages
         {
             InitializeComponent();
 
-            Title = TrainingPlanObject.Name;
-
             IsExerciseAdd = true;
 
             trainingPlan = TrainingPlanObject;

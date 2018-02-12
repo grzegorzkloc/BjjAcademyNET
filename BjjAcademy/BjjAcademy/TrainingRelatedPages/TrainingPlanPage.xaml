@@ -28,7 +28,7 @@
             <StackLayout x:Name="SlListview" IsVisible="True">
                 <Label x:Name="LblTrainingPlanName" VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand" FontSize="Large" 
-                       FontAttributes="Bold"/>
+                       FontAttributes="Bold" HorizontalTextAlignment="Center" Margin="0,0,0,10"/>
                 <ListView x:Name="ExercisesList" HasUnevenRows="True" 
                           ItemSelected="ExercisesList_ItemSelected"
                           >
