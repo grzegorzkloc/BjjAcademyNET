@@ -5,11 +5,12 @@
              x:Class="BjjAcademy.PersonDetails"
              x:Name="PersonDetails"
              Padding="5">
+    
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <ic:CircleImage x:Name="PersonPhoto" HeightRequest="200" WidthRequest="200" Aspect="AspectFill" HorizontalOptions="Center"/>
+                    <ic:CircleImage x:Name="PersonPhoto" HeightRequest="230" WidthRequest="230" Aspect="AspectFill" HorizontalOptions="Center"/>
                 </StackLayout>
                 <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" Spacing="5">
                     <BoxView HeightRequest="2" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="Center"/>

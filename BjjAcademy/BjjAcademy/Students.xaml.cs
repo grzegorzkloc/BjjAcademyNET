@@ -81,8 +81,6 @@ namespace BjjAcademy
             base.OnAppearing();
         }
 
-
-
         #endregion
 
         #region Events

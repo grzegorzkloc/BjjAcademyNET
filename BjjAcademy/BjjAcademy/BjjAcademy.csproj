@@ -37,6 +37,7 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Converters\BeltToColorConverter.cs" />
     <Compile Include="Converters\IsPromotionOkConverter.cs" />
     <Compile Include="Converters\IsPromotionOkToStringConverter.cs" />
     <Compile Include="Converters\IsSelectedPersonConverter.cs" />

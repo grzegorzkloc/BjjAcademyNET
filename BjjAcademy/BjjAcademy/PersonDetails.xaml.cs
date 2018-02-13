@@ -32,6 +32,7 @@ namespace BjjAcademy
         }
         public PersonDetails(ref Person person, SQLiteAsyncConnection _connection, ref ObservableCollection<Person> PersonsList)
         {
+            BindingContext = this;
             student = person;
             this._connection = _connection;
             this.PersonsList = PersonsList;

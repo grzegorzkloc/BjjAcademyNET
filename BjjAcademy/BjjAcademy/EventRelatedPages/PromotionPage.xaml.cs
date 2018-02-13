@@ -127,14 +127,14 @@ namespace BjjAcademy.EventRelatedPages
 
         private async Task MiSort_Clicked(object sender, EventArgs e)
         {
+            if (Participants.Count == 0)
+            {
+                await DisplayAlert("Błąd", "Nie można posortować. Brak uczestników.", "OK");
+                return;
+            }
+
             foreach (var person in Participants)
             {
-                if (Participants.Count == 0)
-                {
-                    await DisplayAlert("Błąd", "Brak uczestników", "OK");
-                    return;
-                }
-
                 if (!person.IsPromotionOK)
                 {
                     await DisplayAlert("Błąd", "Przed sortowaniem nadaj wszystkim wyższe stopnie", "OK");
