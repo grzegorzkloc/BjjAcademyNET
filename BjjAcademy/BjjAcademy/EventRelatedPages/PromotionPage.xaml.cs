@@ -192,6 +192,7 @@ namespace BjjAcademy.EventRelatedPages
                 PersonToBePromoted.IsPromotionOK = false;
                 Participants.Add(PersonToBePromoted);
             }
+            NoOfParticipants.Text = Participants.Count.ToString();
         }
 
         private async void PopulateReceivedList(Students sender, ObservableCollection<Person> args)
@@ -226,6 +227,8 @@ namespace BjjAcademy.EventRelatedPages
                 }
                 i++;
             }
+
+            NoOfParticipants.Text = Participants.Count.ToString();
         }
 
         #endregion
