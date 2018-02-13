@@ -79,8 +79,7 @@ namespace BjjAcademy
                 this.pckrStripes.SelectedIndex = (int)belt.Stripes;
                 if (!String.IsNullOrEmpty(person.Photo))
                 {
-                    //this.FilePath = person.Photo;
-                    this.btnPhotoMaker.Text = "Zmień zdjęcie";
+                    this.btnPhotoMaker.Text = "Zrób zdjęcie";
                 }
 
                 if (String.IsNullOrEmpty(person.Photo)) this.CirclePhoto.IsVisible = false;

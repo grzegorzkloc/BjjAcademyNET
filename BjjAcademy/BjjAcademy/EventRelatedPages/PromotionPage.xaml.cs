@@ -72,9 +72,6 @@ namespace BjjAcademy.EventRelatedPages
         protected override async void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<Students, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.SentToPromotionPage);
-            //MessagingCenter.Unsubscribe<ChangeBeltForPromotion>(this, GlobalMethods.MessagingCenterMessage.PromotionListEmpty);
-
-            //MessagingCenter.Unsubscribe<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent);
 
             ObservableCollection<int> ParticipantsID = new ObservableCollection<int>();
             ObservableCollection<int> NewBeltsID = new ObservableCollection<int>();

@@ -52,8 +52,8 @@
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <ic:CircleImage x:Name="CirclePhoto"
-                        HeightRequest="200"
-                        WidthRequest="200"
+                        HeightRequest="250"
+                        WidthRequest="250"
                         Aspect="AspectFill"
                         HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
@@ -65,7 +65,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnPhotoMaker" BackgroundColor="LightBlue" HorizontalOptions="FillAndExpand"
-                        Clicked="BtnPhotoMaker_Clicked" Text="Dodaj zdjęcie" IsEnabled="False"
+                        Clicked="BtnPhotoMaker_Clicked" Text="Zrób zdjęcie" IsEnabled="False"
                             Grid.Row="0" Grid.Column="0"/>
                     
                     <Button x:Name="btnPhotoPicker" BackgroundColor="LightBlue" HorizontalOptions="FillAndExpand"
