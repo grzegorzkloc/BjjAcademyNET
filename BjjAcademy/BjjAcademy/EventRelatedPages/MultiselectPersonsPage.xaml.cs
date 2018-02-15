@@ -74,7 +74,7 @@ namespace BjjAcademy.EventRelatedPages
 
         protected override bool OnBackButtonPressed()
         {
-            return false;
+            return true;
         }
 
         #endregion
