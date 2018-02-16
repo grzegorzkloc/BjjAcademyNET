@@ -59,6 +59,7 @@ namespace BjjAcademy
         #endregion
 
         #region Overridding
+
         protected override async void OnAppearing()
         {
             if (person == null)
@@ -67,6 +68,7 @@ namespace BjjAcademy
                 Title = "Dodaj osobę";
                 lblPageTitle.Text = "Dodaj osobę";
                 this.CirclePhoto.IsVisible = false;
+                this.BeltImage.IsVisible = false;
             }
             else
             {
@@ -77,6 +79,8 @@ namespace BjjAcademy
                 Belt belt = await _connection.GetAsync<Belt>(person.BeltId);
                 this.pckrBelt.SelectedIndex = (int)belt.BeltColour;
                 this.pckrStripes.SelectedIndex = (int)belt.Stripes;
+                this.BeltImage.Source = ImageSource.FromResource(GetBeltPicFromBeltId(person.BeltId));
+
                 if (!String.IsNullOrEmpty(person.Photo))
                 {
                     this.btnPhotoMaker.Text = "Zrób zdjęcie";
@@ -159,9 +163,10 @@ namespace BjjAcademy
             }
         }
 
-        private void Pckr_SelectedIndexChanged(object sender, EventArgs e)
+        private async Task Pckr_SelectedIndexChanged(object sender, EventArgs e)
         {
             CheckFlags();
+            await UpdateBeltPic();
         }
 
         private async void BtnPhotoMaker_Clicked(object sender, EventArgs e)
@@ -419,6 +424,22 @@ namespace BjjAcademy
             }
 
             return true;
+        }
+
+        private string GetBeltPicFromBeltId(byte beltId)
+        {
+            string EmbeddedResourceId = "BjjAcademy.Graphics." + beltId.ToString() + ".png";
+            return EmbeddedResourceId;
+        }
+
+        private async Task UpdateBeltPic()
+        {
+            if (!BeltImage.IsVisible) BeltImage.IsVisible = true;
+            if (pckrBelt.SelectedIndex != -1 && pckrStripes.SelectedIndex != -1)
+            {
+                var beltId = await GlobalMethods.DbHelper.GetChosenBeltId(_connection, pckrBelt.SelectedIndex, pckrStripes.SelectedIndex);
+                BeltImage.Source = ImageSource.FromResource(GetBeltPicFromBeltId((byte)beltId));
+            }
         }
 
         #endregion

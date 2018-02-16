@@ -19,7 +19,9 @@
                     <Label Text="Obecny stopień" FontSize="Medium" HorizontalOptions="CenterAndExpand"
                            Margin="0,10,0,10"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
+
+                <Image x:Name="OldBeltImage" HorizontalOptions="FillAndExpand"/>
+                <StackLayout Orientation="Horizontal" >
                     <Picker x:Name="pckrOldBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" IsEnabled="False">
                         <Picker.Items>
                             <x:String>Biały</x:String>
@@ -41,8 +43,9 @@
                 </StackLayout>
                 <Label Text="Nowy stopień" FontSize="Medium" HorizontalOptions="CenterAndExpand"
                        Margin="0,10,0,10"/>
-                <StackLayout Orientation="Horizontal">
-                    <Picker x:Name="pckrBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" >
+                <Image x:Name="NewBeltImage" HorizontalOptions="FillAndExpand"/>
+                <StackLayout Orientation="Horizontal" >
+                    <Picker x:Name="pckrBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" SelectedIndexChanged="pckrBelt_SelectedIndexChanged">
                         <Picker.Items>
                             <x:String>Biały</x:String>
                             <x:String>Niebieski</x:String>
@@ -51,7 +54,7 @@
                             <x:String>Czarny</x:String>
                         </Picker.Items>
                     </Picker>
-                    <Picker x:Name="pckrStripes" Title="Ilość belek" HorizontalOptions="FillAndExpand" >
+                    <Picker x:Name="pckrStripes" Title="Ilość belek" HorizontalOptions="FillAndExpand" SelectedIndexChanged="pckrStripes_SelectedIndexChanged">
                         <Picker.Items>
                             <x:String>0 belek</x:String>
                             <x:String>1 belka</x:String>

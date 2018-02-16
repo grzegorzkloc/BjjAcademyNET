@@ -52,6 +52,9 @@ namespace BjjAcademy.EventRelatedPages
 
             SetPickers();
 
+            OldBeltImage.Source = ImageSource.FromResource(GetBeltPicFromBeltId(_promotedPerson.Person.BeltId));
+            NewBeltImage.Source = ImageSource.FromResource(GetBeltPicFromBeltId((byte)_promotedPerson.NewBelt.Id));
+
             base.OnAppearing();
         }
 
@@ -85,6 +88,18 @@ namespace BjjAcademy.EventRelatedPages
                 if (_list.Count == 0) MessagingCenter.Send<ChangeBeltForPromotion>(this, GlobalMethods.MessagingCenterMessage.PromotionListEmpty);
                 await Navigation.PopModalAsync();
             }
+        }
+
+        private async Task pckrBelt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var beltId = await GlobalMethods.DbHelper.GetChosenBeltId(_connection, pckrBelt.SelectedIndex, pckrStripes.SelectedIndex);
+            NewBeltImage.Source = ImageSource.FromResource(GetBeltPicFromBeltId((byte)beltId));
+        }
+
+        private async Task pckrStripes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var beltId = await GlobalMethods.DbHelper.GetChosenBeltId(_connection, pckrBelt.SelectedIndex, pckrStripes.SelectedIndex);
+            NewBeltImage.Source = ImageSource.FromResource(GetBeltPicFromBeltId((byte)beltId));
         }
 
         #endregion
@@ -131,6 +146,12 @@ namespace BjjAcademy.EventRelatedPages
                 this.PersonPhoto.IsVisible = true;
                 return true;
             }
+        }
+
+        private string GetBeltPicFromBeltId(byte beltId)
+        {
+            string EmbeddedResourceId = "BjjAcademy.Graphics." + beltId.ToString() + ".png";
+            return EmbeddedResourceId;
         }
 
         #endregion

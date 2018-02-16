@@ -30,6 +30,7 @@
                 <Label x:Name="lblPseudoValidation" Text="" FontSize="Micro" TextColor="Red"/>
 
             <!-- Belt and stripe picker -->
+                <Image x:Name="BeltImage" HorizontalOptions="FillAndExpand"/>
                 <StackLayout Orientation="Horizontal">
                     <Picker x:Name="pckrBelt" Title="Kolor pasa" HorizontalOptions="FillAndExpand" SelectedIndexChanged="Pckr_SelectedIndexChanged">
                     <Picker.Items>

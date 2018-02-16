@@ -227,6 +227,36 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Graphics\1.png" />
+    <EmbeddedResource Include="Graphics\10.png" />
+    <EmbeddedResource Include="Graphics\11.png" />
+    <EmbeddedResource Include="Graphics\12.png" />
+    <EmbeddedResource Include="Graphics\13.png" />
+    <EmbeddedResource Include="Graphics\14.png" />
+    <EmbeddedResource Include="Graphics\15.png" />
+    <EmbeddedResource Include="Graphics\16.png" />
+    <EmbeddedResource Include="Graphics\17.png" />
+    <EmbeddedResource Include="Graphics\18.png" />
+    <EmbeddedResource Include="Graphics\19.png" />
+    <EmbeddedResource Include="Graphics\2.png" />
+    <EmbeddedResource Include="Graphics\20.png" />
+    <EmbeddedResource Include="Graphics\21.png" />
+    <EmbeddedResource Include="Graphics\22.png" />
+    <EmbeddedResource Include="Graphics\23.png" />
+    <EmbeddedResource Include="Graphics\24.png" />
+    <EmbeddedResource Include="Graphics\25.png" />
+    <EmbeddedResource Include="Graphics\3.png" />
+    <EmbeddedResource Include="Graphics\4.png" />
+    <EmbeddedResource Include="Graphics\5.png" />
+    <EmbeddedResource Include="Graphics\6.png" />
+    <EmbeddedResource Include="Graphics\7.png" />
+    <EmbeddedResource Include="Graphics\8.png" />
+    <EmbeddedResource Include="Graphics\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Graphics\GG.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.5.0.122203\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.5.0.122203\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

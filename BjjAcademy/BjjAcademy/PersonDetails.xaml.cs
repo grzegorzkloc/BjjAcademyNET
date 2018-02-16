@@ -77,6 +77,7 @@ namespace BjjAcademy
             this.NameSurnameLbl.Text = student.Name + " " + student.Surname;
             this.PseudoLbl.Text = student.Pseudo;
             this.BeltStripesLbl.Text = await DbHelper.GetBeltAndStripeInfo(_connection, student.BeltId);
+            this.BeltImage.Source = ImageSource.FromResource(GetBeltPicFromBeltId(student.BeltId));
         }
 
         private bool IsImageVisible()
@@ -91,6 +92,12 @@ namespace BjjAcademy
                 this.PersonPhoto.IsVisible = true;
                 return true;
             }
+        }
+
+        private string GetBeltPicFromBeltId(byte beltId)
+        {
+            string EmbeddedResourceId = "BjjAcademy.Graphics." + beltId.ToString() + ".png";
+            return EmbeddedResourceId;
         }
 
         #endregion

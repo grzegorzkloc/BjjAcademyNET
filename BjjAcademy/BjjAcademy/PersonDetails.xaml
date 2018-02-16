@@ -12,8 +12,8 @@
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <ic:CircleImage x:Name="PersonPhoto" HeightRequest="230" WidthRequest="230" Aspect="AspectFill" HorizontalOptions="Center"/>
                 </StackLayout>
+                <Image x:Name="BeltImage" HorizontalOptions="FillAndExpand"/>
                 <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" Spacing="5">
-                    <BoxView HeightRequest="2" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="Center"/>
                     <Label x:Name="NameSurnameLbl" FontSize="Large" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
                     <Label x:Name="PseudoLbl" FontSize="Large" TextColor="Navy" HorizontalOptions="Center"/>
                     <BoxView HeightRequest="10" WidthRequest="100" BackgroundColor="Transparent" HorizontalOptions="Center"/>
