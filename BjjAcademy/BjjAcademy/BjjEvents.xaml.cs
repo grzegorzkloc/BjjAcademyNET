@@ -41,8 +41,6 @@ namespace BjjAcademy
             InitializeComponent();
         }
 
-
-
         #endregion
 
         #region Override
@@ -85,15 +83,15 @@ namespace BjjAcademy
             Navigation.PushModalAsync(new AddUpdateBjjEvent(ref EventToEdit));
         }
 
-        private void BjjEventList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async Task BjjEventList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
                 return;
 
             if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.AttendanceList)
-                Navigation.PushAsync(new SingleEventPage(e.SelectedItem as Models.BjjEvent));
+                await Navigation.PushAsync(new SingleEventPage(e.SelectedItem as Models.BjjEvent));
             else if ((e.SelectedItem as Models.BjjEvent).EventType == BjjEventType.Promotion)
-                Navigation.PushAsync(new PromotionPage(e.SelectedItem as Models.BjjEvent));
+                await Navigation.PushAsync(new PromotionPage(e.SelectedItem as Models.BjjEvent));
             BjjEventList.SelectedItem = null;
         }
 

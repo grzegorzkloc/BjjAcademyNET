@@ -18,9 +18,6 @@ namespace BjjAcademy.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
-            /*MethodInfo dynMethod = typeof(MessagingCenter).GetMethod("ClearSubscribers", BindingFlags.NonPublic | BindingFlags.Static);
-            dynMethod.Invoke(null, null);
-            */
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
