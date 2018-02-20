@@ -19,6 +19,7 @@ namespace BjjAcademy.EventRelatedPages
     {
         #region Variables
 
+        private bool OneClick;
         private ObservableCollection<PromotedPerson> Participants;
         private ObservableCollection<Person> AllPeople;
         private Models.BjjEvent _bjjEvent;
@@ -30,12 +31,15 @@ namespace BjjAcademy.EventRelatedPages
 
         public PromotionPage()
         {
+            OneClick = true;
             _bjjEvent = null;
             InitializeComponent();
         }
 
         public PromotionPage(Models.BjjEvent Event)
         {
+            InitializeComponent();
+            OneClick = true;
             Participants = new ObservableCollection<PromotedPerson>();
             AllPeople = new ObservableCollection<Person>();
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
@@ -53,7 +57,7 @@ namespace BjjAcademy.EventRelatedPages
 
             MessagingCenter.Send<PromotionPage>(this, GlobalMethods.MessagingCenterMessage.PromotionPageCreated);
 
-            InitializeComponent();
+            //InitializeComponent();
 
             LblEventName.Text = Event.EventName;
         }
@@ -93,14 +97,19 @@ namespace BjjAcademy.EventRelatedPages
 
         #region Events
 
-        private void MiAddPeople_Activated(object sender, SelectedItemChangedEventArgs e)
+        private async Task MiAddPeople_Activated(object sender, SelectedItemChangedEventArgs e)
         {
+            //Prevent One click
+            if (OneClick) OneClick = false;
+            else return;
+
             if (e.SelectedItem == null)
                 return;
 
-            Navigation.PushModalAsync(new MultiselectPersonsPage(AllPeople, Participants));
+            await Navigation.PushModalAsync(new MultiselectPersonsPage(AllPeople, Participants));
 
             ParticipantsList.SelectedItem = null;
+            OneClick = true;
         }
 
         private async Task MiDelete_Clicked(object sender, EventArgs e)
@@ -124,9 +133,13 @@ namespace BjjAcademy.EventRelatedPages
 
         private async Task MiSort_Clicked(object sender, EventArgs e)
         {
+            if (OneClick) OneClick = false;
+            else return;
+
             if (Participants.Count == 0)
             {
                 await DisplayAlert("Błąd", "Nie można posortować. Brak uczestników.", "OK");
+                OneClick = true;
                 return;
             }
 
@@ -135,6 +148,7 @@ namespace BjjAcademy.EventRelatedPages
                 if (!person.IsPromotionOK)
                 {
                     await DisplayAlert("Błąd", "Przed sortowaniem nadaj wszystkim wyższe stopnie", "OK");
+                    OneClick = true;
                     return;
                 }
             }
@@ -170,6 +184,7 @@ namespace BjjAcademy.EventRelatedPages
                 Participants.Add(person);
             }
 
+            OneClick = true;
         }
 
         #endregion

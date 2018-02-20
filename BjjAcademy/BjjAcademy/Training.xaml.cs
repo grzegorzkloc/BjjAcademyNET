@@ -21,12 +21,13 @@ namespace BjjAcademy
         private ObservableCollection<TrainingPlan> TrainingPlans;
         private SQLiteAsyncConnection _connection;
         private bool startup;
-
+        private bool AddTrainingOneClick;
         #endregion
 
         public Training()
         {
             startup = true;
+            AddTrainingOneClick = true;
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
             MessagingCenter.Subscribe<AddUpdateTrainingItems, TrainingPlan>(this, GlobalMethods.MessagingCenterMessage.TrainingPlanAdded, TrainingPlanAdded);
             InitializeComponent();
@@ -39,9 +40,15 @@ namespace BjjAcademy
             base.OnAppearing();
         }
 
-        private void AddTrainingUnit_Activated(object sender, EventArgs e)
+        private async Task AddTrainingUnit_Activated(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new AddUpdateTrainingItems());
+            //Prevent AddTraining double click
+            if (AddTrainingOneClick) AddTrainingOneClick = false;
+            else return;
+
+            await Navigation.PushModalAsync(new AddUpdateTrainingItems());
+
+            AddTrainingOneClick = true;
         }
 
         private async void BjjTrainingList_ItemSelected(object sender, SelectedItemChangedEventArgs e)

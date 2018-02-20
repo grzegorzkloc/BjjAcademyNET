@@ -86,6 +86,9 @@ namespace BjjAcademy.TrainingRelatedPages
 
         private void AddExercise_Activated(object sender, EventArgs e)
         {
+            AddBtn.IsEnabled = true;
+            CancelBtn.IsEnabled = true;
+
             IsExerciseAdd = true;
             AddBtn.Text = "Dodaj";
             SlAddExercise.IsVisible = true;
@@ -94,14 +97,16 @@ namespace BjjAcademy.TrainingRelatedPages
 
         private void CancelBtn_Clicked(object sender, EventArgs e)
         {
+            CancelBtn.IsEnabled = false;
             SlAddExercise.IsVisible = false;
             SlListview.IsVisible = true;
             EdtrExercise.Text = "";
         }
 
-        private void AddBtn_Clicked(object sender, EventArgs e)
+        private async Task AddBtn_Clicked(object sender, EventArgs e)
         {
-            AddUpdateExercise(IsExerciseAdd);
+            AddBtn.IsEnabled = false;
+            await AddUpdateExercise(IsExerciseAdd);
         }
 
         private void EdtrExercise_TextChanged(object sender, TextChangedEventArgs e)
@@ -163,7 +168,7 @@ namespace BjjAcademy.TrainingRelatedPages
             _connection.UpdateAsync(trainingPlan);
         }
 
-        private async void AddUpdateExercise(bool IsAdd)
+        private async Task AddUpdateExercise(bool IsAdd)
         {
             if (IsAdd)
             {

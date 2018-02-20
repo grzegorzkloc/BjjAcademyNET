@@ -54,13 +54,15 @@ namespace BjjAcademy
             else this.AddBtn.IsEnabled = false;
         }
 
-        private void CancelBtn_Clicked(object sender, EventArgs e)
+        private async Task CancelBtn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PopModalAsync();
+            CancelBtn.IsEnabled = false;
+            await Navigation.PopModalAsync();
         }
 
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
+            AddBtn.IsEnabled = false;
             if (IsAddPage) await AddTrainingPlan();
             else await ChangeTrainingPlanName();
         }

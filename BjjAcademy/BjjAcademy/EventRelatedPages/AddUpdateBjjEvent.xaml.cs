@@ -60,8 +60,9 @@ namespace BjjAcademy.EventRelatedPages
             Navigation.PopModalAsync();
         }
 
-        private async void AddBtn_Clicked(object sender, EventArgs e)
+        private async Task AddBtn_Clicked(object sender, EventArgs e)
         {
+            AddBtn.IsEnabled = false;
             if (IsAdd)
             {
                 BjjEventType TempEventType = new Models.BjjEventType();

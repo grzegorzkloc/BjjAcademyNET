@@ -46,8 +46,9 @@ namespace BjjAcademy
 
         #region Events
 
-        private async void DeleteBtn_Clicked(object sender, EventArgs e)
+        private async Task DeleteBtn_Clicked(object sender, EventArgs e)
         {
+            DeleteBtn.IsEnabled = false;
             if (await DisplayAlert("Uwaga", "Czy jesteś pewny, że chcesz skasować osobę: " + student.Name + " " + student.Surname, "Kasuj", "Anuluj"))
             {
                 if (!String.IsNullOrEmpty(student.Photo))
@@ -59,10 +60,13 @@ namespace BjjAcademy
                 PersonsList.Remove(student);
                 await Navigation.PopAsync();
             }
+            DeleteBtn.IsEnabled = true;
+
         }
 
-        private async void UpdateBtn_Clicked(object sender, EventArgs e)
+        private async Task UpdateBtn_Clicked(object sender, EventArgs e)
         {
+            UpdateBtn.IsEnabled = false;
             await Navigation.PushModalAsync(new AddUpdatePersonPage(_connection, ref PersonsList, student));
             Navigation.RemovePage(this);
         }

@@ -8,8 +8,8 @@
 
     <local:Students Title="Osoby"/>
     
-    <local:BjjEvents Title="Wydarzenia"/>
-
     <local:Training Title="Trening"/>
+    
+    <local:BjjEvents Title="Wydarzenia"/>
 
 </TabbedPage>

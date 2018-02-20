@@ -90,16 +90,18 @@ namespace BjjAcademy.EventRelatedPages
             MultiselectList.SelectedItem = null;
         }
 
-        private void CancelBtn_Clicked(object sender, EventArgs e)
+        private async Task CancelBtn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PopModalAsync();
+            CancelBtn.IsEnabled = false;
+            await Navigation.PopModalAsync();
         }
 
-        private void AddBtn_Clicked(object sender, EventArgs e)
+        private async Task AddBtn_Clicked(object sender, EventArgs e)
         {
+            AddBtn.IsEnabled = false;
             var SelectedPeople = ReturnSelectedPeople();
             MessagingCenter.Send<MultiselectPersonsPage, ObservableCollection<Person>>(this, GlobalMethods.MessagingCenterMessage.MultiselectPersonsSent, SelectedPeople);
-            Navigation.PopModalAsync();
+            await Navigation.PopModalAsync();
         }
 
         #endregion

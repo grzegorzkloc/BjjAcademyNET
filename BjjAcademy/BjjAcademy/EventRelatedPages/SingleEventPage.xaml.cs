@@ -15,6 +15,7 @@ namespace BjjAcademy.EventRelatedPages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SingleEventPage : ContentPage
     {
+        private bool OneClick;
         private ObservableCollection<Person> Participants;
         private ObservableCollection<Person> AllPeople;
         private Models.BjjEvent _bjjEvent;
@@ -22,12 +23,14 @@ namespace BjjAcademy.EventRelatedPages
 
         public SingleEventPage()
         {
+            OneClick = true;
             _bjjEvent = null;
             InitializeComponent();
         }
 
         public SingleEventPage(Models.BjjEvent Event)
         {
+            OneClick = true;
             Participants = new ObservableCollection<Person>();
             BindingContext = this;
 
@@ -93,14 +96,19 @@ namespace BjjAcademy.EventRelatedPages
             base.OnDisappearing();
         }
 
-        private void MiAddPeople_Activated(object sender, SelectedItemChangedEventArgs e)
+        private async Task MiAddPeople_Activated(object sender, SelectedItemChangedEventArgs e)
         {
+            //Prevent double click
+            if (OneClick) OneClick = false;
+            else return;
+
             if (e.SelectedItem == null)
                 return;
 
-            Navigation.PushModalAsync(new MultiselectPersonsPage(AllPeople, Participants));
+            await Navigation.PushModalAsync(new MultiselectPersonsPage(AllPeople, Participants));
 
             ParticipantsList.SelectedItem = null;
+            OneClick = true;
         }
 
         private async Task MiDelete_Clicked(object sender, EventArgs e)

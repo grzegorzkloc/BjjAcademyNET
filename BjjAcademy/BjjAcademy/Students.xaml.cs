@@ -23,6 +23,7 @@ namespace BjjAcademy
         #region Variables
 
         private bool startup;
+        private bool AddUpdatePersonOneClick;
         private SQLiteAsyncConnection _connection;
         private ObservableCollection<Person> PersonsList;
 
@@ -33,6 +34,8 @@ namespace BjjAcademy
         public Students()
         {
             startup = true;
+            AddUpdatePersonOneClick = true;
+
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
             PersonsList = new ObservableCollection<Person>();
             BindingContext = this;
@@ -85,10 +88,16 @@ namespace BjjAcademy
 
         #region Events
 
-        private void AddPerson_Activated(object sender, EventArgs e)
+        private async Task AddPerson_Activated(object sender, EventArgs e)
         {
+            //Prevent double click
+            if (AddUpdatePersonOneClick) AddUpdatePersonOneClick = false;
+            else return;
+
             if (!String.IsNullOrWhiteSpace(searchbar.Text)) searchbar.Text = "";
-            Navigation.PushModalAsync(new AddUpdatePersonPage(_connection, ref PersonsList));
+
+            await Navigation.PushModalAsync(new AddUpdatePersonPage(_connection, ref PersonsList));
+            AddUpdatePersonOneClick = true;
         }
 
         private async void StudentList_ItemSelected(object sender, SelectedItemChangedEventArgs e)

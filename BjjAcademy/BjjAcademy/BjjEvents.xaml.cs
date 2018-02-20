@@ -20,6 +20,7 @@ namespace BjjAcademy
         #region Variables
 
         private bool IsStartup;
+        private bool AddEventOneClick;
         private SQLiteAsyncConnection _connection;
         private ObservableCollection<BjjEvent> EventsList;
 
@@ -30,6 +31,7 @@ namespace BjjAcademy
         public BjjEvents()
         {
             IsStartup = true;
+            AddEventOneClick = true;
             _connection = DependencyService.Get<ISQLiteDb>().GetConnection();
             MessagingCenter.Unsubscribe<AddUpdateBjjEvent, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.AddedBjjEvent);
             MessagingCenter.Subscribe<AddUpdateBjjEvent, BjjEvent>(this, GlobalMethods.MessagingCenterMessage.AddedBjjEvent, BjjEventAdded);
@@ -56,9 +58,15 @@ namespace BjjAcademy
 
         #region Events
 
-        private void AddBjjEvent_Activated(object sender, EventArgs e)
+        private async Task AddBjjEvent_Activated(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new AddUpdateBjjEvent());
+            //Prevent Add Event double click
+            if (AddEventOneClick) AddEventOneClick = false;
+            else return;
+
+            await Navigation.PushModalAsync(new AddUpdateBjjEvent());
+
+            AddEventOneClick = true;
         }
 
         private async Task MiDelete_Clicked(object sender, EventArgs e)
@@ -76,11 +84,11 @@ namespace BjjAcademy
             }
         }
 
-        private void MiEdit_Clicked(object sender, EventArgs e)
+        private async Task MiEdit_Clicked(object sender, EventArgs e)
         {
             var EventToEditIndex = EventsList.IndexOf((sender as MenuItem).CommandParameter as BjjEvent);
             var EventToEdit = EventsList.ElementAt<BjjEvent>(EventToEditIndex);
-            Navigation.PushModalAsync(new AddUpdateBjjEvent(ref EventToEdit));
+            await Navigation.PushModalAsync(new AddUpdateBjjEvent(ref EventToEdit));
         }
 
         private async Task BjjEventList_ItemSelected(object sender, SelectedItemChangedEventArgs e)

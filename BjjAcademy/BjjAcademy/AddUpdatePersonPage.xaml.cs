@@ -144,7 +144,7 @@ namespace BjjAcademy
 
         private async void CancelBtn_Clicked(object sender, EventArgs e)
         {
-            //if (!String.IsNullOrEmpty(FilePath) && IsAddPage == true)
+            CancelBtn.IsEnabled = false;
             if (!String.IsNullOrEmpty(FilePath))
             {
                 var file = await FileSystem.Current.GetFileFromPathAsync(FilePath);
@@ -154,13 +154,15 @@ namespace BjjAcademy
             await Navigation.PopModalAsync();
         }
 
-        private async void AddBtn_Clicked(object sender, EventArgs e)
+        private async Task AddBtn_Clicked(object sender, EventArgs e)
         {
+            AddBtn.IsEnabled = false;
             if (await CheckIfPersonExists(this.person))
             {
-                AddUpdatePerson();
+                await AddUpdatePerson();
                 await Navigation.PopModalAsync();
             }
+            AddBtn.IsEnabled = true;
         }
 
         private async Task Pckr_SelectedIndexChanged(object sender, EventArgs e)
@@ -234,15 +236,15 @@ namespace BjjAcademy
 
         #region Methods
 
-        private void AddUpdatePerson()
+        private async Task AddUpdatePerson()
         {
             if (IsAddPage == true)
             {
-                AddPerson();
+                await AddPerson();
             }
             else if (IsAddPage == false)
             {
-                UpdatePerson();
+                await UpdatePerson();
             }
         }
 
@@ -297,7 +299,7 @@ namespace BjjAcademy
             }
         }
 
-        private async void AddPerson()
+        private async Task AddPerson()
         {
             int beltid = await DbHelper.GetChosenBeltId(_connection, this.pckrBelt.SelectedIndex,
                 this.pckrStripes.SelectedIndex);
@@ -310,7 +312,7 @@ namespace BjjAcademy
             await DisplayAlert("Dodano osobę", "Osoba " + this.Name.Text + " " + this.Surname.Text + " dodana.", "OK");
         }
 
-        private async void UpdatePerson()
+        private async Task UpdatePerson()
         {
             int beltid = await DbHelper.GetChosenBeltId(_connection, this.pckrBelt.SelectedIndex,
                 this.pckrStripes.SelectedIndex);
