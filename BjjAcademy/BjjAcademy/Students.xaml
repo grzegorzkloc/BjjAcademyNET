@@ -19,7 +19,7 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <SearchBar x:Name="searchbar" Placeholder="Szukaj..." TextChanged="Searchbar_TextChanged" 
-                       HorizontalOptions="StartAndExpand"/>
+                       HorizontalOptions="FillAndExpand"/>
             <ListView 
             x:Name="StudentList" 
             ItemSelected="StudentList_ItemSelected" 
